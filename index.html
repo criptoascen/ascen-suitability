@@ -961,51 +961,60 @@
     ReactDOM.createRoot(document.getElementById("root")).render(<App />);
   </script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
-  window.gerarPDF = async function () {
-    const element = document.getElementById("pdf-content");
+window.gerarPDF = function () {
 
-    if (!element) return;
+  const { jsPDF } = window.jspdf;
 
-    const originalStyle = element.getAttribute("style") || "";
+  const risco = document.getElementById("pdf-risco")?.innerText || "-";
+  const operacional = document.getElementById("pdf-operacional")?.innerText || "-";
+  const capital = document.getElementById("pdf-capital")?.innerText || "-";
+  const modalidade = document.getElementById("pdf-modalidade")?.innerText || "-";
+  const descricao = document.getElementById("pdf-descricao")?.innerText || "-";
 
-    element.style.position = "fixed";
-    element.style.left = "0";
-    element.style.top = "0";
-    element.style.width = "210mm";
-    element.style.minHeight = "297mm";
-    element.style.background = "#ffffff";
-    element.style.color = "#000000";
-    element.style.padding = "20mm 18mm";
-    element.style.zIndex = "-1";
-    element.style.opacity = "1";
-    element.style.visibility = "visible";
-    element.style.pointerEvents = "none";
+  const doc = new jsPDF();
 
-    await new Promise(resolve => setTimeout(resolve, 200));
+  let y = 20;
 
-    const opt = {
-      margin: 10,
-      filename: "suitability-ascen.pdf",
-      image: { type: "jpeg", quality: 1 },
-      html2canvas: {
-        scale: 2,
-        backgroundColor: "#ffffff"
-      },
-      jsPDF: {
-        unit: "mm",
-        format: "a4",
-        orientation: "portrait"
-      }
-    };
+  doc.setFontSize(18);
+  doc.text("ASCEN CRIPTO", 20, y);
 
-    await html2pdf().set(opt).from(element).save();
+  y += 10;
+  doc.setFontSize(14);
+  doc.text("Relatório de Suitability", 20, y);
 
-    element.setAttribute("style", originalStyle);
-  };
+  y += 15;
+
+  doc.setFontSize(12);
+  doc.text("Perfil de risco: " + risco, 20, y);
+
+  y += 10;
+  doc.text("Perfil operacional: " + operacional, 20, y);
+
+  y += 10;
+  doc.text("Capital estimado: " + capital, 20, y);
+
+  y += 10;
+  doc.text("Modalidade recomendada: " + modalidade, 20, y);
+
+  y += 15;
+
+  const texto = doc.splitTextToSize(descricao, 170);
+  doc.text(texto, 20, y);
+
+  y += texto.length * 7 + 10;
+
+  const aviso = "Este questionário possui caráter educativo e auxilia na identificação do perfil de exposição ao mercado de criptoativos.";
+  const avisoLines = doc.splitTextToSize(aviso, 170);
+  doc.text(avisoLines, 20, y);
+
+  doc.save("suitability-ascen.pdf");
+
+};
 </script>
 </body>
 </html>
+
 
 
