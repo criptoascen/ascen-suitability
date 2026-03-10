@@ -47,17 +47,13 @@
     }
 
     #pdf-content {
-      position: absolute;
-      left: -99999px;
-      top: 0;
-      width: 210mm;
-      min-height: 297mm;
-      background: #ffffff;
-      color: #000000;
-      padding: 20mm 18mm;
-      font-family: Arial, sans-serif;
-      line-height: 1.55;
-    }
+  visibility: hidden;
+  pointer-events: none;
+  background: #ffffff;
+  color: #000000;
+  font-family: Arial, sans-serif;
+  line-height: 1.55;
+}
 
     #pdf-content h1,
     #pdf-content h2,
@@ -967,20 +963,49 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
-  window.gerarPDF = function () {
-      const element = document.getElementById("pdf-content");
+  window.gerarPDF = async function () {
+    const element = document.getElementById("pdf-content");
 
-      const opt = {
-        margin: 10,
-        filename: "suitability-ascen.pdf",
-        image: { type: "jpeg", quality: 1 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
-      };
+    if (!element) return;
 
-      html2pdf().set(opt).from(element).save();
-    }
-  </script>
+    const originalStyle = element.getAttribute("style") || "";
+
+    element.style.position = "fixed";
+    element.style.left = "0";
+    element.style.top = "0";
+    element.style.width = "210mm";
+    element.style.minHeight = "297mm";
+    element.style.background = "#ffffff";
+    element.style.color = "#000000";
+    element.style.padding = "20mm 18mm";
+    element.style.zIndex = "-1";
+    element.style.opacity = "1";
+    element.style.visibility = "visible";
+    element.style.pointerEvents = "none";
+
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    const opt = {
+      margin: 10,
+      filename: "suitability-ascen.pdf",
+      image: { type: "jpeg", quality: 1 },
+      html2canvas: {
+        scale: 2,
+        backgroundColor: "#ffffff"
+      },
+      jsPDF: {
+        unit: "mm",
+        format: "a4",
+        orientation: "portrait"
+      }
+    };
+
+    await html2pdf().set(opt).from(element).save();
+
+    element.setAttribute("style", originalStyle);
+  };
+</script>
 </body>
 </html>
+
 
