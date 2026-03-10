@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suitability | Ascen Cripto</title>
+  <meta name="description" content="Questionário de enquadramento de perfil de investidor - Ascen Cripto" />
+  <meta property="og:title" content="Suitability | Ascen Cripto" />
+  <meta property="og:description" content="Descubra seu perfil de investidor e a modalidade de consultoria ideal para você." />
+  <link rel="icon" href="logo.webp" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    body {
+      background: #0a0f1a;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    button {
+      transition: all 0.2s ease;
+    }
+
+    button:hover {
+      opacity: 0.94;
+    }
+
+    a {
+      transition: all 0.2s ease;
+    }
+
+    a:hover {
+      opacity: 0.94;
+    }
+
+    @media (max-width: 640px) {
+      .gauges-wrap {
+        gap: 20px !important;
+      }
+
+      .result-card-title {
+        font-size: 24px !important;
+      }
+
+      .main-title {
+        font-size: 24px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const LOGO = "./logo.png";
+    const WHATSAPP_URL = "https://wa.me/message/5CR5RNL3K3BZD1";
+
+    function Logo({ size = 80 }) {
+      return (
+        <img
+          src={LOGO}
+          alt="Ascen Cripto"
+          style={{
+            width: size,
+            height: size,
+            objectFit: "contain",
+            borderRadius: 10
+          }}
+        />
+      );
+    }
+
+    const STEPS = [
+      {
+        id: "idade",
+        eixo: "A",
+        title: "Idade",
+        subtitle: "Qual a sua faixa etária?",
+        icon: "👤",
+        maxPts: 10,
+        options: [
+          { label: "18–30 anos", value: 10 },
+          { label: "31–40 anos", value: 8 },
+          { label: "41–50 anos", value: 6 },
+          { label: "51–60 anos", value: 4 },
+          { label: "Acima de 60 anos", value: 2 }
+        ]
+      },
+      {
+        id: "horizonte",
+        eixo: "A",
+        title: "Horizonte de Investimento",
+        subtitle: "Quanto tempo pretende manter seus investimentos em cripto?",
+        icon: "⏳",
+        maxPts: 15,
+        options: [
+          { label: "Menos de 1 ano", value: 0 },
+          { label: "1–2 anos", value: 4 },
+          { label: "2–4 anos", value: 8 },
+          { label: "4–6 anos", value: 12 },
+          { label: "Acima de 6 anos", value: 15 }
+        ]
+      },
+      {
+        id: "tolerancia",
+        eixo: "A",
+        title: "Tolerância a Perdas",
+        subtitle: "Se sua carteira cair 30% em 3 meses, o que você faria?",
+        icon: "📉",
+        maxPts: 20,
+        options: [
+          { label: "Venderia tudo", value: 0 },
+          { label: "Reduziria parcialmente", value: 8 },
+          { label: "Manteria posição", value: 14 },
+          { label: "Aumentaria gradualmente", value: 18 },
+          { label: "Aumentaria estrategicamente", value: 20 }
+        ]
+      },
+      {
+        id: "capacidade",
+        eixo: "A",
+        title: "Capacidade Financeira",
+        subtitle: "O capital investido representa quanto do seu patrimônio?",
+        icon: "💰",
+        maxPts: 20,
+        options: [
+          { label: "Mais de 50% do patrimônio", value: 0 },
+          { label: "30–50% do patrimônio", value: 6 },
+          { label: "15–30% do patrimônio", value: 12 },
+          { label: "Menos de 15% do patrimônio", value: 16 },
+          { label: "Capital excedente sem impacto patrimonial", value: 20 }
+        ]
+      },
+      {
+        id: "alocacao",
+        eixo: "A",
+        title: "Alocação Atual por Classe de Ativos",
+        subtitle: "Como seu patrimônio está distribuído hoje?",
+        icon: "📊",
+        maxPts: 20,
+        options: [
+          { label: "Mais de 70% em renda fixa", value: 0 },
+          { label: "Entre 50–70% em renda fixa", value: 5 },
+          { label: "Distribuição equilibrada entre renda fixa e variável", value: 10 },
+          { label: "Maioria em renda variável tradicional (ações, FIIs)", value: 15 },
+          { label: "Maioria em alta volatilidade (cripto, small caps, tech growth)", value: 20 }
+        ]
+      },
+      {
+        id: "experiencia_vol",
+        eixo: "A",
+        title: "Experiência com Volatilidade",
+        subtitle: "Qual sua vivência com oscilações de mercado?",
+        icon: "🎢",
+        maxPts: 15,
+        options: [
+          { label: "Nunca passei por mercado de queda", value: 0 },
+          { label: "Já investi apenas em renda fixa", value: 3 },
+          { label: "Já investi em ações", value: 7 },
+          { label: "Já passei por queda relevante", value: 12 },
+          { label: "Já aumentei posição em ciclos de queda", value: 15 }
+        ]
+      },
+      {
+        id: "exp_pratica",
+        eixo: "B",
+        title: "Experiência Prática",
+        subtitle: "Qual seu nível de experiência operando com cripto?",
+        icon: "🔧",
+        maxPts: 25,
+        options: [
+          { label: "Nunca operei", value: 0 },
+          { label: "Compra simples em CEX (Binance, etc.)", value: 8 },
+          { label: "Transfere entre redes", value: 15 },
+          { label: "Usa wallet e DEX", value: 20 },
+          { label: "Opera DeFi regularmente", value: 25 }
+        ]
+      },
+      {
+        id: "complexidade",
+        eixo: "B",
+        title: "Complexidade da Estrutura Atual",
+        subtitle: "Como está organizada sua estrutura cripto hoje?",
+        icon: "🏗️",
+        maxPts: 25,
+        options: [
+          { label: "Sem estrutura", value: 0 },
+          { label: "Apenas CEX", value: 8 },
+          { label: "CEX + wallet", value: 15 },
+          { label: "Uso de múltiplas redes e protocolos", value: 20 },
+          { label: "Estrutura diversificada com múltiplos protocolos", value: 25 }
+        ]
+      },
+      {
+        id: "autonomia",
+        eixo: "B",
+        title: "Capacidade de Execução Autônoma",
+        subtitle: "Qual seu grau de autonomia para operar?",
+        icon: "🎯",
+        maxPts: 25,
+        options: [
+          { label: "Totalmente dependente", value: 0 },
+          { label: "Executa com auxílio", value: 10 },
+          { label: "Autônomo em operações simples", value: 15 },
+          { label: "Autônomo estruturado", value: 20 },
+          { label: "Execução técnica avançada", value: 25 }
+        ]
+      },
+      {
+        id: "gestao",
+        eixo: "B",
+        title: "Gestão Estratégica",
+        subtitle: "Como você toma decisões de investimento em cripto?",
+        icon: "🧠",
+        maxPts: 25,
+        options: [
+          { label: "Compra por indicação", value: 0 },
+          { label: "Possuo carteira sem lógica clara", value: 8 },
+          { label: "Estrutura básica Core/Satélite", value: 15 },
+          { label: "Considera tokenomics e ciclo", value: 20 },
+          { label: "Estrutura narrativa, liquidez e macro", value: 25 }
+        ]
+      },
+      {
+        id: "capital",
+        eixo: "C",
+        title: "Capital para Investimento em Cripto",
+        subtitle: "Qual o volume total de capital que você tem ou planeja investir em criptoativos?",
+        icon: "🏦",
+        maxPts: null,
+        options: [
+          { label: "Até R$ 5.000", value: "ate5k" },
+          { label: "R$ 5.000 a R$ 15.000", value: "5k_15k" },
+          { label: "R$ 15.000 a R$ 35.000", value: "15k_35k" },
+          { label: "R$ 35.000 a R$ 75.000", value: "35k_75k" },
+          { label: "R$ 75.000 a R$ 200.000", value: "75k_200k" },
+          { label: "Acima de R$ 200.000", value: "acima200k" }
+        ]
+      }
+    ];
+
+    function getRiskProfile(s) {
+      if (s <= 35) return { label: "Conservador", color: "#3b82f6" };
+      if (s <= 50) return { label: "Moderado Conservador", color: "#06b6d4" };
+      if (s <= 70) return { label: "Moderado", color: "#eab308" };
+      if (s <= 85) return { label: "Moderado Agressivo", color: "#f97316" };
+      return { label: "Agressivo", color: "#ef4444" };
+    }
+
+    function getOpProfile(s) {
+      if (s <= 30) return { label: "Iniciante", color: "#3b82f6" };
+      if (s <= 50) return { label: "Básico", color: "#06b6d4" };
+      if (s <= 70) return { label: "Intermediário", color: "#eab308" };
+      if (s <= 85) return { label: "Avançado", color: "#f97316" };
+      return { label: "Sofisticado", color: "#ef4444" };
+    }
+
+    function getCapitalLabel(c) {
+      const m = {
+        ate5k: "Até R$ 5 mil",
+        "5k_15k": "R$ 5–15 mil",
+        "15k_35k": "R$ 15–35 mil",
+        "35k_75k": "R$ 35–75 mil",
+        "75k_200k": "R$ 75–200 mil",
+        acima200k: "Acima de R$ 200 mil"
+      };
+      return m[c] || "—";
+    }
+
+    function getCapitalFaixa(c) {
+      if (c === "ate5k" || c === "5k_15k") return "baixo";
+      if (c === "15k_35k" || c === "35k_75k") return "medio";
+      return "elevado";
+    }
+
+    function getConsultoria(rS, oS, capital) {
+      const f = getCapitalFaixa(capital);
+
+      if (f === "elevado") {
+        if (rS >= 86 && oS >= 71) {
+          return {
+            tipo: "VIP",
+            nome: "Consultoria VIP",
+            emoji: "💎",
+            subtipo: "Prioritária",
+            desc: "Perfil ideal para gestão ativa com subconta operacional. Alta maturidade técnica, financeira e de risco."
+          };
+        }
+
+        if (rS >= 71 && oS >= 41) {
+          return {
+            tipo: "VIP",
+            nome: "Consultoria VIP",
+            emoji: "💎",
+            subtipo: "Com controle rigoroso de risco",
+            desc: "Capital elevado com perfil agressivo. VIP indicada com ênfase em gestão de risco e rebalanceamento frequente."
+          };
+        }
+
+        if (oS <= 40) {
+          return {
+            tipo: "VIP",
+            nome: "Consultoria VIP",
+            emoji: "💎",
+            subtipo: "Com módulo educacional paralelo",
+            desc: "Capital elevado justifica VIP. Recomenda-se orientação estruturada paralela para elevar a maturidade operacional."
+          };
+        }
+
+        if (rS <= 50) {
+          return {
+            tipo: "VIP",
+            nome: "Consultoria VIP",
+            emoji: "💎",
+            subtipo: "Com estrutura defensiva",
+            desc: "Capital elevado com perfil conservador. VIP viável com estratégia defensiva e controle rigoroso de risco."
+          };
+        }
+
+        return {
+          tipo: "VIP",
+          nome: "Consultoria VIP",
+          emoji: "💎",
+          subtipo: "Possível",
+          desc: "Capital elevado permite acesso ao VIP. Estrutura ajustada ao seu perfil de risco e maturidade operacional."
+        };
+      }
+
+      if (f === "medio") {
+        if (oS >= 76) {
+          return {
+            tipo: "Standard",
+            nome: "Consultoria Standard",
+            emoji: "💼",
+            subtipo: "Avançada",
+            desc: "Alta maturidade operacional com capital médio. Consultoria focada em otimização estratégica e sofisticação de carteira."
+          };
+        }
+
+        if (oS <= 40) {
+          return {
+            tipo: "Standard",
+            nome: "Consultoria Standard",
+            emoji: "💼",
+            subtipo: "Estruturada",
+            desc: "Capital médio, mas maturidade operacional em desenvolvimento. Consultoria com foco em estruturar e educar."
+          };
+        }
+
+        if (rS <= 50) {
+          return {
+            tipo: "Standard",
+            nome: "Consultoria Standard",
+            emoji: "💼",
+            subtipo: "Conservadora",
+            desc: "Capital médio com perfil de risco conservador. Consultoria com alocações defensivas e educação gradual."
+          };
+        }
+
+        return {
+          tipo: "Standard",
+          nome: "Consultoria Standard",
+          emoji: "💼",
+          subtipo: "",
+          desc: "Modalidade padrão para investidores com capital médio. Estrutura estratégica com orientação especializada."
+        };
+      }
+
+      if (capital === "5k_15k" && oS >= 71) {
+        return {
+          tipo: "Standard",
+          nome: "Consultoria Standard",
+          emoji: "💼",
+          subtipo: "Estruturada",
+          desc: "Apesar do capital inicial, sua alta maturidade operacional justifica consultoria mais estruturada. Foco em crescimento patrimonial."
+        };
+      }
+
+      if (oS <= 30) {
+        return {
+          tipo: "Start",
+          nome: "Cripto Start",
+          emoji: "🎓",
+          subtipo: "Educacional",
+          desc: "Foco total em educação, fundamentos de cripto e estruturação inicial. Acompanhamento próximo nos primeiros passos."
+        };
+      }
+
+      if (oS <= 50) {
+        return {
+          tipo: "Start",
+          nome: "Cripto Start",
+          emoji: "🎓",
+          subtipo: "Com base operacional",
+          desc: "Você já tem alguma experiência. Start com foco em organizar sua estrutura e preparar para crescimento."
+        };
+      }
+
+      return {
+        tipo: "Start",
+        nome: "Cripto Start",
+        emoji: "🎓",
+        subtipo: "Acelerada",
+        desc: "Boa maturidade operacional, mas capital ainda inicial. Start acelerado visando migrar para Standard rapidamente."
+      };
+    }
+
+    function Gauge({ score, max, label, color, delay = 100 }) {
+      const [on, setOn] = useState(false);
+
+      useEffect(() => {
+        const t = setTimeout(() => setOn(true), delay);
+        return () => clearTimeout(t);
+      }, [delay]);
+
+      const pct = on ? (score / max) * 100 : 0;
+      const r = 70;
+      const circ = Math.PI * r;
+      const off = circ - (pct / 100) * circ;
+
+      return (
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+          <svg width="160" height="95" viewBox="0 0 160 95">
+            <path
+              d="M 10 85 A 70 70 0 0 1 150 85"
+              fill="none"
+              stroke="rgba(255,255,255,0.06)"
+              strokeWidth="10"
+              strokeLinecap="round"
+            />
+            <path
+              d="M 10 85 A 70 70 0 0 1 150 85"
+              fill="none"
+              stroke={color}
+              strokeWidth="10"
+              strokeLinecap="round"
+              strokeDasharray={circ}
+              strokeDashoffset={off}
+              style={{
+                transition: "stroke-dashoffset 1.4s cubic-bezier(0.25,0.46,0.45,0.94)"
+              }}
+            />
+            <text x="80" y="68" textAnchor="middle" fill="white" fontFamily="'Outfit',sans-serif" fontSize="32" fontWeight="700">
+              {score}
+            </text>
+            <text x="80" y="88" textAnchor="middle" fill="#64748b" fontFamily="'Outfit',sans-serif" fontSize="12">
+              de {max}
+            </text>
+          </svg>
+          <span style={{ fontFamily: "'Outfit',sans-serif", fontSize: 13, fontWeight: 600, color: color, textAlign: "center" }}>
+            {label}
+          </span>
+        </div>
+      );
+    }
+
+    const FC = {
+      baixo: "#8b5cf6",
+      medio: "#06b6d4",
+      elevado: "#f97316"
+    };
+
+    function App() {
+      const [step, setStep] = useState(-1);
+      const [ans, setAns] = useState({});
+      const [vis, setVis] = useState(true);
+
+      const go = (n) => {
+        setVis(false);
+        setTimeout(() => {
+          setStep(n);
+          setVis(true);
+        }, 220);
+      };
+
+      const pick = (id, value) => {
+        setAns((prev) => ({ ...prev, [id]: value }));
+        setTimeout(() => {
+          go(step < STEPS.length - 1 ? step + 1 : STEPS.length);
+        }, 160);
+      };
+
+      const resetAll = () => {
+        setAns({});
+        go(-1);
+      };
+
+      const rS = STEPS.filter((s) => s.eixo === "A").reduce((acc, s) => acc + (typeof ans[s.id] === "number" ? ans[s.id] : 0), 0);
+      const oS = STEPS.filter((s) => s.eixo === "B").reduce((acc, s) => acc + (typeof ans[s.id] === "number" ? ans[s.id] : 0), 0);
+
+      const cap = ans["capital"] || "ate5k";
+      const rP = getRiskProfile(rS);
+      const oP = getOpProfile(oS);
+      const con = getConsultoria(rS, oS, cap);
+      const cf = getCapitalFaixa(cap);
+
+      const whatsappMessage =
+        `Olá, finalizei o suitability da Ascen Cripto.%0A%0A` +
+        `Meu enquadramento foi:%0A` +
+        `• Perfil de risco: ${rP.label} (${rS}/100)%0A` +
+        `• Perfil operacional: ${oP.label} (${oS}/100)%0A` +
+        `• Capital disponível: ${getCapitalLabel(cap)}%0A` +
+        `• Modalidade indicada: ${con.nome}${con.subtipo ? " - " + con.subtipo : ""}%0A%0A` +
+        `Gostaria de conversar sobre a consultoria indicada.`;
+
+      const whatsappHref = `${WHATSAPP_URL}?text=${whatsappMessage}`;
+
+      const shell = {
+        minHeight: "100vh",
+        background: "#0a0f1a",
+        fontFamily: "'Outfit',sans-serif",
+        color: "#e2e8f0",
+        position: "relative",
+        overflow: "hidden"
+      };
+
+      const glow1 = {
+        position: "fixed",
+        top: "-30%",
+        right: "-15%",
+        width: "55vw",
+        height: "55vw",
+        borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(249,115,22,0.07) 0%, transparent 65%)",
+        pointerEvents: "none"
+      };
+
+      const glow2 = {
+        position: "fixed",
+        bottom: "-25%",
+        left: "-15%",
+        width: "50vw",
+        height: "50vw",
+        borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(6,182,212,0.04) 0%, transparent 65%)",
+        pointerEvents: "none"
+      };
+
+      const container = {
+        maxWidth: 620,
+        margin: "0 auto",
+        padding: "40px 20px 60px",
+        position: "relative",
+        zIndex: 1,
+        opacity: vis ? 1 : 0,
+        transform: vis ? "translateY(0)" : "translateY(14px)",
+        transition: "opacity 0.25s ease, transform 0.25s ease"
+      };
+
+      if (step === -1) {
+        return (
+          <div style={shell}>
+            <div style={glow1}></div>
+            <div style={glow2}></div>
+
+            <div style={{ ...container, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", textAlign: "center" }}>
+              <Logo size={100} />
+
+              <div style={{ width: 42, height: 1, background: "rgba(249,115,22,0.45)", margin: "24px 0" }}></div>
+
+              <h1 className="main-title" style={{ fontSize: 28, fontWeight: 800, color: "#f8fafc", margin: "0 0 4px" }}>
+                Suitability
+              </h1>
+
+              <p style={{ fontSize: 14, color: "#64748b", margin: 0, letterSpacing: 1 }}>
+                Ascen Cripto
+              </p>
+
+              <p style={{ fontSize: 15, lineHeight: 1.75, color: "#94a3b8", maxWidth: 430, margin: "24px 0 36px" }}>
+                Questionário para identificar seu
+                <span style={{ color: "#f97316", fontWeight: 600 }}> perfil de risco</span>,
+                <span style={{ color: "#06b6d4", fontWeight: 600 }}> perfil operacional</span>
+                {" "}e a modalidade de consultoria mais adequada.
+              </p>
+
+              <button
+                onClick={() => go(0)}
+                style={{
+                  background: "linear-gradient(135deg,#f97316,#ea580c)",
+                  color: "white",
+                  border: "none",
+                  padding: "15px 52px",
+                  borderRadius: 999,
+                  fontSize: 15,
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  fontFamily: "'Outfit',sans-serif",
+                  boxShadow: "0 4px 28px rgba(249,115,22,0.35)"
+                }}
+              >
+                Iniciar avaliação
+              </button>
+
+              <p style={{ fontSize: 12, color: "#475569", marginTop: 20 }}>
+                11 perguntas · ~3 minutos
+              </p>
+            </div>
+          </div>
+        );
+      }
+
+      if (step >= STEPS.length) {
+        const tc = {
+          VIP: "#f97316",
+          Standard: "#06b6d4",
+          Start: "#8b5cf6"
+        }[con.tipo];
+
+        return (
+          <div style={shell}>
+            <div style={glow1}></div>
+            <div style={glow2}></div>
+
+            <div style={container}>
+              <div style={{ textAlign: "center", marginBottom: 36 }}>
+                <Logo size={56} />
+                <p style={{ fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "#64748b", margin: "14px 0 6px", fontWeight: 500 }}>
+                  Resultado da avaliação
+                </p>
+                <h2 className="result-card-title" style={{ fontSize: 26, fontWeight: 800, color: "#f8fafc", margin: 0 }}>
+                  Seu enquadramento
+                </h2>
+              </div>
+
+              <div className="gauges-wrap" style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", marginBottom: 32 }}>
+                <Gauge score={rS} max={100} label={rP.label} color={rP.color} delay={180} />
+                <Gauge score={oS} max={100} label={oP.label} color={oP.color} delay={420} />
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 24 }}>
+                {[
+                  { l: "Eixo A · Risco", v: rP.label, c: rP.color },
+                  { l: "Eixo B · Operacional", v: oP.label, c: oP.color },
+                  { l: "Eixo C · Capital", v: getCapitalLabel(cap), c: FC[cf] }
+                ].map((x, i) => (
+                  <div key={i} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 12, padding: "14px 20px", textAlign: "center", flex: "1 1 160px", minWidth: 140 }}>
+                    <p style={{ fontSize: 10, color: "#64748b", textTransform: "uppercase", letterSpacing: 1.5, margin: "0 0 6px", fontWeight: 500 }}>
+                      {x.l}
+                    </p>
+                    <p style={{ fontSize: 15, fontWeight: 700, color: x.c, margin: 0 }}>
+                      {x.v}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ background: `linear-gradient(135deg, ${tc}14, ${tc}08)`, border: `1px solid ${tc}35`, borderRadius: 16, padding: "28px 24px", textAlign: "center", marginBottom: 28 }}>
+                <span style={{ fontSize: 36, display: "block", marginBottom: 10 }}>
+                  {con.emoji}
+                </span>
+
+                <p style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: "#94a3b8", margin: "0 0 6px", fontWeight: 500 }}>
+                  Modalidade indicada
+                </p>
+
+                <h3 style={{ fontSize: 28, fontWeight: 800, color: tc, margin: "0 0 4px" }}>
+                  {con.nome}
+                </h3>
+
+                {con.subtipo && (
+                  <p style={{ fontSize: 13, color: "#cbd5e1", margin: "0 0 14px", fontStyle: "italic" }}>
+                    {con.subtipo}
+                  </p>
+                )}
+
+                <p style={{ fontSize: 14, lineHeight: 1.7, color: "#94a3b8", maxWidth: 470, margin: "0 auto" }}>
+                  {con.desc}
+                </p>
+              </div>
+
+              <div style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 14, padding: "20px 20px 12px", marginBottom: 28 }}>
+                <p style={{ fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: "#64748b", margin: "0 0 14px", fontWeight: 600 }}>
+                  Detalhamento por critério
+                </p>
+
+                {STEPS.filter((s) => s.eixo !== "C").map((s) => {
+                  const v = ans[s.id] || 0;
+                  const m = s.maxPts;
+                  const bc = s.eixo === "A" ? "#f97316" : "#06b6d4";
+
+                  return (
+                    <div key={s.id} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                      <span style={{ fontSize: 12, color: "#94a3b8", width: 170, flexShrink: 0 }}>
+                        {s.title}
+                      </span>
+
+                      <div style={{ flex: 1, height: 5, background: "rgba(255,255,255,0.05)", borderRadius: 3, overflow: "hidden" }}>
+                        <div style={{ width: `${m > 0 ? (v / m) * 100 : 0}%`, height: "100%", background: bc, borderRadius: 3, transition: "width 1s ease" }}></div>
+                      </div>
+
+                      <span style={{ fontSize: 12, fontWeight: 600, color: "#cbd5e1", width: 50, textAlign: "right" }}>
+                        {v}/{m}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "center", marginBottom: 16 }}>
+                <a
+                  href={whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 10,
+                    minWidth: 280,
+                    textDecoration: "none",
+                    background: "linear-gradient(135deg, #25D366, #16a34a)",
+                    color: "white",
+                    border: "none",
+                    padding: "15px 26px",
+                    borderRadius: 999,
+                    fontSize: 15,
+                    fontWeight: 700,
+                    boxShadow: "0 8px 30px rgba(34,197,94,0.25)"
+                  }}
+                >
+                  Falar com a Ascen Cripto no WhatsApp
+                </a>
+
+                <button
+                  onClick={resetAll}
+                  style={{
+                    background: "transparent",
+                    color: "#94a3b8",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    padding: "12px 36px",
+                    borderRadius: 999,
+                    fontSize: 14,
+                    fontWeight: 500,
+                    cursor: "pointer",
+                    fontFamily: "'Outfit',sans-serif"
+                  }}
+                >
+                  Refazer avaliação
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      const current = STEPS[step];
+      const eixoLabel = current.eixo === "A" ? "Perfil de Risco" : current.eixo === "B" ? "Perfil Operacional" : "Critério Financeiro";
+      const eixoColor = current.eixo === "A" ? "#f97316" : current.eixo === "B" ? "#06b6d4" : "#8b5cf6";
+      const progress = ((step + 1) / STEPS.length) * 100;
+
+      return (
+        <div style={shell}>
+          <div style={glow1}></div>
+          <div style={glow2}></div>
+
+          <div style={container}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 28 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <Logo size={36} />
+                <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#64748b" }}>
+                  Suitability
+                </span>
+              </div>
+
+              <span style={{ fontSize: 12, color: "#64748b", fontWeight: 500 }}>
+                {step + 1} / {STEPS.length}
+              </span>
+            </div>
+
+            <div style={{ width: "100%", height: 4, background: "rgba(255,255,255,0.06)", borderRadius: 999, marginBottom: 32, overflow: "hidden" }}>
+              <div style={{ width: `${progress}%`, height: "100%", background: `linear-gradient(90deg, ${eixoColor}, ${eixoColor}aa)`, borderRadius: 999, transition: "width 0.4s cubic-bezier(0.4,0,0.2,1)" }}></div>
+            </div>
+
+            {step > 0 && (
+              <button
+                onClick={() => go(step - 1)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "#64748b",
+                  cursor: "pointer",
+                  fontSize: 13,
+                  fontFamily: "'Outfit',sans-serif",
+                  padding: 0,
+                  marginBottom: 20
+                }}
+              >
+                ← Voltar
+              </button>
+            )}
+
+            <div style={{ display: "inline-flex", background: `${eixoColor}12`, border: `1px solid ${eixoColor}25`, borderRadius: 20, padding: "5px 14px", marginBottom: 20 }}>
+              <span style={{ fontSize: 10, fontWeight: 600, color: eixoColor, letterSpacing: 1.5, textTransform: "uppercase" }}>
+                {`Eixo ${current.eixo} · ${eixoLabel}`}
+              </span>
+            </div>
+
+            <div style={{ marginBottom: 28 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+                <span style={{ fontSize: 24 }}>{current.icon}</span>
+                <h2 style={{ fontSize: 22, fontWeight: 700, color: "#f8fafc", margin: 0 }}>
+                  {current.title}
+                </h2>
+              </div>
+
+              <p style={{ fontSize: 14, color: "#94a3b8", margin: 0, lineHeight: 1.6 }}>
+                {current.subtitle}
+              </p>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {current.options.map((option, i) => {
+                const selected = ans[current.id] === option.value;
+
+                return (
+                  <button
+                    key={i}
+                    onClick={() => pick(current.id, option.value)}
+                    style={{
+                      background: selected ? `${eixoColor}12` : "rgba(255,255,255,0.025)",
+                      border: selected ? `1px solid ${eixoColor}50` : "1px solid rgba(255,255,255,0.07)",
+                      borderRadius: 12,
+                      padding: "14px 18px",
+                      textAlign: "left",
+                      cursor: "pointer",
+                      color: selected ? "#f8fafc" : "#cbd5e1",
+                      fontSize: 14,
+                      fontFamily: "'Outfit',sans-serif",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 14,
+                      lineHeight: 1.4
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: "50%",
+                        flexShrink: 0,
+                        border: selected ? `2px solid ${eixoColor}` : "2px solid rgba(255,255,255,0.15)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center"
+                      }}
+                    >
+                      {selected && <span style={{ width: 8, height: 8, borderRadius: "50%", background: eixoColor }}></span>}
+                    </span>
+
+                    <span>{option.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
