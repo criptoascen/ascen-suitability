@@ -7,7 +7,7 @@
   <meta name="description" content="Questionário de enquadramento de perfil de investidor - Ascen Cripto" />
   <meta property="og:title" content="Suitability | Ascen Cripto" />
   <meta property="og:description" content="Descubra seu perfil de investidor e a modalidade de consultoria ideal para você." />
-  <link rel="icon" href="logo.webp" />
+  <link rel="icon" href="logo.png" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
@@ -46,6 +46,37 @@
       opacity: 0.94;
     }
 
+    #pdf-content {
+      position: absolute;
+      left: -99999px;
+      top: 0;
+      width: 210mm;
+      min-height: 297mm;
+      background: #ffffff;
+      color: #000000;
+      padding: 20mm 18mm;
+      font-family: Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    #pdf-content h1,
+    #pdf-content h2,
+    #pdf-content h3 {
+      color: #000000;
+      margin-bottom: 10px;
+    }
+
+    #pdf-content p {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    #pdf-content .pdf-divider {
+      border: 0;
+      border-top: 1px solid #d9d9d9;
+      margin: 16px 0;
+    }
+
     @media (max-width: 640px) {
       .gauges-wrap {
         gap: 20px !important;
@@ -63,6 +94,31 @@
 </head>
 <body>
   <div id="root"></div>
+
+  <div id="pdf-content" aria-hidden="true">
+    <h2>ASCEN CRIPTO</h2>
+    <h3>Relatório de Suitability</h3>
+
+    <hr class="pdf-divider" />
+
+    <p><strong>Perfil de risco:</strong> <span id="pdf-risco">—</span></p>
+    <p><strong>Perfil operacional:</strong> <span id="pdf-operacional">—</span></p>
+    <p><strong>Capital estimado:</strong> <span id="pdf-capital">—</span></p>
+    <p><strong>Modalidade recomendada:</strong> <span id="pdf-modalidade">—</span></p>
+
+    <hr class="pdf-divider" />
+
+    <p id="pdf-descricao">—</p>
+
+    <p>
+      Este questionário possui caráter educativo e auxilia na identificação
+      do perfil de exposição ao mercado de criptoativos.
+    </p>
+
+    <p>
+      Para orientação personalizada, entre em contato com a Ascen Cripto.
+    </p>
+  </div>
 
   <script type="text/babel">
     const { useState, useEffect } = React;
@@ -509,6 +565,22 @@
       const con = getConsultoria(rS, oS, cap);
       const cf = getCapitalFaixa(cap);
 
+      useEffect(() => {
+        if (step >= STEPS.length) {
+          const riscoEl = document.getElementById("pdf-risco");
+          const operacionalEl = document.getElementById("pdf-operacional");
+          const capitalEl = document.getElementById("pdf-capital");
+          const modalidadeEl = document.getElementById("pdf-modalidade");
+          const descricaoEl = document.getElementById("pdf-descricao");
+
+          if (riscoEl) riscoEl.innerText = rP.label;
+          if (operacionalEl) operacionalEl.innerText = oP.label;
+          if (capitalEl) capitalEl.innerText = getCapitalLabel(cap);
+          if (modalidadeEl) modalidadeEl.innerText = con.nome + (con.subtipo ? " - " + con.subtipo : "");
+          if (descricaoEl) descricaoEl.innerText = con.desc;
+        }
+      }, [step, rP.label, oP.label, cap, con.nome, con.subtipo, con.desc]);
+
       const whatsappMessage =
         `Olá, finalizei o suitability da Ascen Cripto.%0A%0A` +
         `Meu enquadramento foi:%0A` +
@@ -737,6 +809,24 @@
                 </a>
 
                 <button
+                  onClick={gerarPDF}
+                  style={{
+                    background: "linear-gradient(135deg,#f97316,#ea580c)",
+                    color: "white",
+                    border: "none",
+                    padding: "14px 26px",
+                    borderRadius: 999,
+                    fontSize: 15,
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    fontFamily: "'Outfit',sans-serif",
+                    boxShadow: "0 8px 30px rgba(249,115,22,0.22)"
+                  }}
+                >
+                  Baixar resultado em PDF
+                </button>
+
+                <button
                   onClick={resetAll}
                   style={{
                     background: "transparent",
@@ -874,7 +964,22 @@
 
     ReactDOM.createRoot(document.getElementById("root")).render(<App />);
   </script>
-</body>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    function gerarPDF() {
+      const element = document.getElementById("pdf-content");
+
+      const opt = {
+        margin: 10,
+        filename: "suitability-ascen.pdf",
+        image: { type: "jpeg", quality: 1 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+      };
+
+      html2pdf().set(opt).from(element).save();
+    }
+  </script>
+</body>
 </html>
-<!-- deploy -->
