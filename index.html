@@ -479,6 +479,7 @@
       const [step, setStep] = useState(-1);
       const [ans, setAns] = useState({});
       const [vis, setVis] = useState(true);
+      const [nome, setNome] = useState("");
 
       const go = (n) => {
         setVis(false);
@@ -509,13 +510,17 @@
       const con = getConsultoria(rS, oS, cap);
       const cf = getCapitalFaixa(cap);
 
-      const resultData = {
-        risco: rP.label,
-        operacional: oP.label,
-        capital: getCapitalLabel(cap),
-        modalidade: con.nome + (con.subtipo ? " - " + con.subtipo : ""),
-        descricao: con.desc
-      };
+      const idadeSelecionada = STEPS.find((s) => s.id === "idade")?.options.find((o) => o.value === ans["idade"])?.label || "-";
+
+const resultData = {
+  nome: nome.trim() || "-",
+  idade: idadeSelecionada,
+  risco: rP.label,
+  operacional: oP.label,
+  capital: getCapitalLabel(cap),
+  modalidade: con.nome + (con.subtipo ? " - " + con.subtipo : ""),
+  descricao: con.desc
+};
 
       const whatsappMessage =
         `Olá, finalizei o suitability da Ascen Cripto.%0A%0A` +
@@ -571,56 +576,77 @@
       };
 
       if (step === -1) {
-        return (
-          <div style={shell}>
-            <div style={glow1}></div>
-            <div style={glow2}></div>
+  return (
+    <div style={shell}>
+      <div style={glow1}></div>
+      <div style={glow2}></div>
 
-            <div style={{ ...container, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", textAlign: "center" }}>
-              <Logo size={100} />
+      <div style={{ ...container, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", textAlign: "center" }}>
+        <Logo size={100} />
 
-              <div style={{ width: 42, height: 1, background: "rgba(249,115,22,0.45)", margin: "24px 0" }}></div>
+        <div style={{ width: 42, height: 1, background: "rgba(249,115,22,0.45)", margin: "24px 0" }}></div>
 
-              <h1 className="main-title" style={{ fontSize: 28, fontWeight: 800, color: "#f8fafc", margin: "0 0 4px" }}>
-                Suitability
-              </h1>
+        <h1 className="main-title" style={{ fontSize: 28, fontWeight: 800, color: "#f8fafc", margin: "0 0 4px" }}>
+          Suitability
+        </h1>
 
-              <p style={{ fontSize: 14, color: "#64748b", margin: 0, letterSpacing: 1 }}>
-                Ascen Cripto
-              </p>
+        <p style={{ fontSize: 14, color: "#64748b", margin: 0, letterSpacing: 1 }}>
+          Ascen Cripto
+        </p>
 
-              <p style={{ fontSize: 15, lineHeight: 1.75, color: "#94a3b8", maxWidth: 430, margin: "24px 0 36px" }}>
-                Questionário para identificar seu
-                <span style={{ color: "#f97316", fontWeight: 600 }}> perfil de risco</span>,
-                <span style={{ color: "#06b6d4", fontWeight: 600 }}> perfil operacional</span>
-                {" "}e a modalidade de consultoria mais adequada.
-              </p>
+        <p style={{ fontSize: 15, lineHeight: 1.75, color: "#94a3b8", maxWidth: 430, margin: "24px 0 24px" }}>
+          Questionário para identificar seu
+          <span style={{ color: "#f97316", fontWeight: 600 }}> perfil de risco</span>,
+          <span style={{ color: "#06b6d4", fontWeight: 600 }}> perfil operacional</span>
+          {" "}e a modalidade de consultoria mais adequada.
+        </p>
 
-              <button
-                onClick={() => go(0)}
-                style={{
-                  background: "linear-gradient(135deg,#f97316,#ea580c)",
-                  color: "white",
-                  border: "none",
-                  padding: "15px 52px",
-                  borderRadius: 999,
-                  fontSize: 15,
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  fontFamily: "'Outfit',sans-serif",
-                  boxShadow: "0 4px 28px rgba(249,115,22,0.35)"
-                }}
-              >
-                Iniciar avaliação
-              </button>
+        <input
+          type="text"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+          placeholder="Digite seu nome"
+          style={{
+            width: "100%",
+            maxWidth: 360,
+            background: "rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.10)",
+            color: "#f8fafc",
+            padding: "14px 16px",
+            borderRadius: 12,
+            fontSize: 14,
+            outline: "none",
+            fontFamily: "'Outfit',sans-serif",
+            marginBottom: 18
+          }}
+        />
 
-              <p style={{ fontSize: 12, color: "#475569", marginTop: 20 }}>
-                11 perguntas · ~3 minutos
-              </p>
-            </div>
-          </div>
-        );
-      }
+        <button
+          onClick={() => go(0)}
+          disabled={!nome.trim()}
+          style={{
+            background: nome.trim() ? "linear-gradient(135deg,#f97316,#ea580c)" : "rgba(255,255,255,0.10)",
+            color: "white",
+            border: "none",
+            padding: "15px 52px",
+            borderRadius: 999,
+            fontSize: 15,
+            fontWeight: 700,
+            cursor: nome.trim() ? "pointer" : "not-allowed",
+            fontFamily: "'Outfit',sans-serif",
+            boxShadow: nome.trim() ? "0 4px 28px rgba(249,115,22,0.35)" : "none"
+          }}
+        >
+          Iniciar avaliação
+        </button>
+
+        <p style={{ fontSize: 12, color: "#475569", marginTop: 20 }}>
+          11 perguntas · ~3 minutos
+        </p>
+      </div>
+    </div>
+  );
+}
 
       if (step >= STEPS.length) {
         const tc = {
@@ -903,73 +929,88 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
-    window.gerarPDF = function (data) {
-      const jsPDF = window.jspdf.jsPDF;
-      const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+  window.gerarPDF = function (data) {
+    const jsPDF = window.jspdf.jsPDF;
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
 
-      const risco = data?.risco || "-";
-      const operacional = data?.operacional || "-";
-      const capital = data?.capital || "-";
-      const modalidade = data?.modalidade || "-";
-      const descricao = data?.descricao || "-";
+    const nome = data?.nome || "-";
+    const idade = data?.idade || "-";
+    const risco = data?.risco || "-";
+    const operacional = data?.operacional || "-";
+    const capital = data?.capital || "-";
+    const modalidade = data?.modalidade || "-";
+    const descricao = data?.descricao || "-";
 
-      let y = 20;
+    let y = 20;
 
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(20);
-      doc.text("ASCEN CRIPTO", 20, y);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(20);
+    doc.text("ASCEN CRIPTO", 20, y);
 
-      y += 12;
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(14);
-      doc.text("Relatório de Suitability", 20, y);
+    y += 12;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(14);
+    doc.text("Relatório de Suitability", 20, y);
 
-      y += 10;
-      doc.setDrawColor(210, 210, 210);
-      doc.line(20, y, 190, y);
+    y += 10;
+    doc.setDrawColor(210, 210, 210);
+    doc.line(20, y, 190, y);
 
-      y += 12;
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(12);
-      doc.text("Perfil de risco:", 20, y);
-      doc.setFont("helvetica", "normal");
-      doc.text(String(risco), 62, y);
+    y += 12;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.text("Nome:", 20, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(String(nome), 38, y);
 
-      y += 10;
-      doc.setFont("helvetica", "bold");
-      doc.text("Perfil operacional:", 20, y);
-      doc.setFont("helvetica", "normal");
-      doc.text(String(operacional), 72, y);
+    y += 10;
+    doc.setFont("helvetica", "bold");
+    doc.text("Idade:", 20, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(String(idade), 40, y);
 
-      y += 10;
-      doc.setFont("helvetica", "bold");
-      doc.text("Capital estimado:", 20, y);
-      doc.setFont("helvetica", "normal");
-      doc.text(String(capital), 62, y);
+    y += 10;
+    doc.setFont("helvetica", "bold");
+    doc.text("Perfil de risco:", 20, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(String(risco), 62, y);
 
-      y += 10;
-      doc.setFont("helvetica", "bold");
-      doc.text("Modalidade recomendada:", 20, y);
-      doc.setFont("helvetica", "normal");
-      const modalidadeLines = doc.splitTextToSize(String(modalidade), 105);
-      doc.text(modalidadeLines, 83, y);
-      y += modalidadeLines.length * 7;
+    y += 10;
+    doc.setFont("helvetica", "bold");
+    doc.text("Perfil operacional:", 20, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(String(operacional), 72, y);
 
-      y += 6;
-      doc.line(20, y, 190, y);
+    y += 10;
+    doc.setFont("helvetica", "bold");
+    doc.text("Capital estimado:", 20, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(String(capital), 62, y);
 
-      y += 12;
-      doc.setFont("helvetica", "normal");
-      const descricaoLines = doc.splitTextToSize(String(descricao), 170);
-      doc.text(descricaoLines, 20, y);
-      y += descricaoLines.length * 7 + 10;
+    y += 10;
+    doc.setFont("helvetica", "bold");
+    doc.text("Modalidade recomendada:", 20, y);
+    doc.setFont("helvetica", "normal");
+    const modalidadeLines = doc.splitTextToSize(String(modalidade), 105);
+    doc.text(modalidadeLines, 83, y);
+    y += modalidadeLines.length * 7;
 
-      const aviso = "Este questionário possui caráter educativo e auxilia na identificação do perfil de exposição ao mercado de criptoativos.";
-      const avisoLines = doc.splitTextToSize(aviso, 170);
-      doc.text(avisoLines, 20, y);
+    y += 6;
+    doc.line(20, y, 190, y);
 
-      doc.save("suitability-ascen.pdf");
-    };
-  </script>
+    y += 12;
+    doc.setFont("helvetica", "normal");
+    const descricaoLines = doc.splitTextToSize(String(descricao), 170);
+    doc.text(descricaoLines, 20, y);
+    y += descricaoLines.length * 7 + 10;
+
+    const aviso = "Este questionário possui caráter educativo e auxilia na identificação do perfil de exposição ao mercado de criptoativos.";
+    const avisoLines = doc.splitTextToSize(aviso, 170);
+    doc.text(avisoLines, 20, y);
+
+    doc.save("suitability-ascen.pdf");
+  };
+</script>
 </body>
 </html>
+
