@@ -46,33 +46,6 @@
       opacity: 0.94;
     }
 
-    #pdf-content {
-  visibility: hidden;
-  pointer-events: none;
-  background: #ffffff;
-  color: #000000;
-  font-family: Arial, sans-serif;
-  line-height: 1.55;
-}
-
-    #pdf-content h1,
-    #pdf-content h2,
-    #pdf-content h3 {
-      color: #000000;
-      margin-bottom: 10px;
-    }
-
-    #pdf-content p {
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-
-    #pdf-content .pdf-divider {
-      border: 0;
-      border-top: 1px solid #d9d9d9;
-      margin: 16px 0;
-    }
-
     @media (max-width: 640px) {
       .gauges-wrap {
         gap: 20px !important;
@@ -90,31 +63,6 @@
 </head>
 <body>
   <div id="root"></div>
-
-  <div id="pdf-content" aria-hidden="true">
-    <h2>ASCEN CRIPTO</h2>
-    <h3>Relatório de Suitability</h3>
-
-    <hr class="pdf-divider" />
-
-    <p><strong>Perfil de risco:</strong> <span id="pdf-risco">—</span></p>
-    <p><strong>Perfil operacional:</strong> <span id="pdf-operacional">—</span></p>
-    <p><strong>Capital estimado:</strong> <span id="pdf-capital">—</span></p>
-    <p><strong>Modalidade recomendada:</strong> <span id="pdf-modalidade">—</span></p>
-
-    <hr class="pdf-divider" />
-
-    <p id="pdf-descricao">—</p>
-
-    <p>
-      Este questionário possui caráter educativo e auxilia na identificação
-      do perfil de exposição ao mercado de criptoativos.
-    </p>
-
-    <p>
-      Para orientação personalizada, entre em contato com a Ascen Cripto.
-    </p>
-  </div>
 
   <script type="text/babel">
     const { useState, useEffect } = React;
@@ -561,21 +509,13 @@
       const con = getConsultoria(rS, oS, cap);
       const cf = getCapitalFaixa(cap);
 
-      useEffect(() => {
-        if (step >= STEPS.length) {
-          const riscoEl = document.getElementById("pdf-risco");
-          const operacionalEl = document.getElementById("pdf-operacional");
-          const capitalEl = document.getElementById("pdf-capital");
-          const modalidadeEl = document.getElementById("pdf-modalidade");
-          const descricaoEl = document.getElementById("pdf-descricao");
-
-          if (riscoEl) riscoEl.innerText = rP.label;
-          if (operacionalEl) operacionalEl.innerText = oP.label;
-          if (capitalEl) capitalEl.innerText = getCapitalLabel(cap);
-          if (modalidadeEl) modalidadeEl.innerText = con.nome + (con.subtipo ? " - " + con.subtipo : "");
-          if (descricaoEl) descricaoEl.innerText = con.desc;
-        }
-      }, [step, rP.label, oP.label, cap, con.nome, con.subtipo, con.desc]);
+      const resultData = {
+        risco: rP.label,
+        operacional: oP.label,
+        capital: getCapitalLabel(cap),
+        modalidade: con.nome + (con.subtipo ? " - " + con.subtipo : ""),
+        descricao: con.desc
+      };
 
       const whatsappMessage =
         `Olá, finalizei o suitability da Ascen Cripto.%0A%0A` +
@@ -805,7 +745,7 @@
                 </a>
 
                 <button
-                  onClick={() => window.gerarPDF()}
+                  onClick={() => window.gerarPDF(resultData)}
                   style={{
                     background: "linear-gradient(135deg,#f97316,#ea580c)",
                     color: "white",
@@ -963,58 +903,73 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
-window.gerarPDF = function () {
+    window.gerarPDF = function (data) {
+      const jsPDF = window.jspdf.jsPDF;
+      const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
 
-  const { jsPDF } = window.jspdf;
+      const risco = data?.risco || "-";
+      const operacional = data?.operacional || "-";
+      const capital = data?.capital || "-";
+      const modalidade = data?.modalidade || "-";
+      const descricao = data?.descricao || "-";
 
-  const risco = document.getElementById("pdf-risco")?.innerText || "-";
-  const operacional = document.getElementById("pdf-operacional")?.innerText || "-";
-  const capital = document.getElementById("pdf-capital")?.innerText || "-";
-  const modalidade = document.getElementById("pdf-modalidade")?.innerText || "-";
-  const descricao = document.getElementById("pdf-descricao")?.innerText || "-";
+      let y = 20;
 
-  const doc = new jsPDF();
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(20);
+      doc.text("ASCEN CRIPTO", 20, y);
 
-  let y = 20;
+      y += 12;
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(14);
+      doc.text("Relatório de Suitability", 20, y);
 
-  doc.setFontSize(18);
-  doc.text("ASCEN CRIPTO", 20, y);
+      y += 10;
+      doc.setDrawColor(210, 210, 210);
+      doc.line(20, y, 190, y);
 
-  y += 10;
-  doc.setFontSize(14);
-  doc.text("Relatório de Suitability", 20, y);
+      y += 12;
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(12);
+      doc.text("Perfil de risco:", 20, y);
+      doc.setFont("helvetica", "normal");
+      doc.text(String(risco), 62, y);
 
-  y += 15;
+      y += 10;
+      doc.setFont("helvetica", "bold");
+      doc.text("Perfil operacional:", 20, y);
+      doc.setFont("helvetica", "normal");
+      doc.text(String(operacional), 72, y);
 
-  doc.setFontSize(12);
-  doc.text("Perfil de risco: " + risco, 20, y);
+      y += 10;
+      doc.setFont("helvetica", "bold");
+      doc.text("Capital estimado:", 20, y);
+      doc.setFont("helvetica", "normal");
+      doc.text(String(capital), 62, y);
 
-  y += 10;
-  doc.text("Perfil operacional: " + operacional, 20, y);
+      y += 10;
+      doc.setFont("helvetica", "bold");
+      doc.text("Modalidade recomendada:", 20, y);
+      doc.setFont("helvetica", "normal");
+      const modalidadeLines = doc.splitTextToSize(String(modalidade), 105);
+      doc.text(modalidadeLines, 83, y);
+      y += modalidadeLines.length * 7;
 
-  y += 10;
-  doc.text("Capital estimado: " + capital, 20, y);
+      y += 6;
+      doc.line(20, y, 190, y);
 
-  y += 10;
-  doc.text("Modalidade recomendada: " + modalidade, 20, y);
+      y += 12;
+      doc.setFont("helvetica", "normal");
+      const descricaoLines = doc.splitTextToSize(String(descricao), 170);
+      doc.text(descricaoLines, 20, y);
+      y += descricaoLines.length * 7 + 10;
 
-  y += 15;
+      const aviso = "Este questionário possui caráter educativo e auxilia na identificação do perfil de exposição ao mercado de criptoativos.";
+      const avisoLines = doc.splitTextToSize(aviso, 170);
+      doc.text(avisoLines, 20, y);
 
-  const texto = doc.splitTextToSize(descricao, 170);
-  doc.text(texto, 20, y);
-
-  y += texto.length * 7 + 10;
-
-  const aviso = "Este questionário possui caráter educativo e auxilia na identificação do perfil de exposição ao mercado de criptoativos.";
-  const avisoLines = doc.splitTextToSize(aviso, 170);
-  doc.text(avisoLines, 20, y);
-
-  doc.save("suitability-ascen.pdf");
-
-};
-</script>
+      doc.save("suitability-ascen.pdf");
+    };
+  </script>
 </body>
 </html>
-
-
-
