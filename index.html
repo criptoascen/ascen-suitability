@@ -454,18 +454,20 @@ function el(html) {
 function fadeRender(html) {
   const app = document.getElementById("app");
   const old = app.querySelector(".container");
-  if (old) {
-    old.classList.remove("show");
-    setTimeout(() => { app.innerHTML = html; requestAnimationFrame(() => {
-      const c = app.querySelector(".container");
-      if (c) c.classList.add("show");
-    });}, 220);
-  } else {
+  const apply = () => {
     app.innerHTML = html;
     requestAnimationFrame(() => {
       const c = app.querySelector(".container");
       if (c) c.classList.add("show");
+      // Anima qualquer gauge que tenha sido renderizado nesse HTML
+      if (typeof animateGauges === "function") animateGauges();
     });
+  };
+  if (old) {
+    old.classList.remove("show");
+    setTimeout(apply, 220);
+  } else {
+    apply();
   }
 }
 
@@ -542,13 +544,17 @@ function renderQuestion() {
   `);
 }
 
+// Lista de gauges pendentes pra animar depois que o HTML for inserido no DOM
+const _pendingGauges = [];
+
 function gaugeSVG(score, max, color) {
   const r = 70;
   const circ = Math.PI * r;
   const pct = (score / max) * 100;
   const off = circ - (pct / 100) * circ;
-  // ID único pra animar via CSS
   const uid = "g_" + Math.random().toString(36).slice(2, 9);
+  // Guarda o offset final pra animar depois (via animateGauges)
+  _pendingGauges.push({ uid, off });
   return `
     <svg width="160" height="95" viewBox="0 0 160 95">
       <path d="M 10 85 A 70 70 0 0 1 150 85" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="10" stroke-linecap="round"/>
@@ -557,9 +563,19 @@ function gaugeSVG(score, max, color) {
         style="transition: stroke-dashoffset 1.4s cubic-bezier(0.25,0.46,0.45,0.94)"/>
       <text x="80" y="68" text-anchor="middle" fill="white" font-family="Sora" font-size="32" font-weight="700">${score}</text>
       <text x="80" y="88" text-anchor="middle" fill="#64748b" font-family="Sora" font-size="12">de ${max}</text>
-      <script>setTimeout(function(){document.getElementById("${uid}").setAttribute("stroke-dashoffset","${off}")}, 200)</script>
     </svg>
   `;
+}
+
+function animateGauges() {
+  // Roda 200ms depois pra dar tempo do CSS aplicar o estado inicial
+  setTimeout(() => {
+    while (_pendingGauges.length) {
+      const { uid, off } = _pendingGauges.shift();
+      const node = document.getElementById(uid);
+      if (node) node.setAttribute("stroke-dashoffset", String(off));
+    }
+  }, 200);
 }
 
 function renderResult() {
