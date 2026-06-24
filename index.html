@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Suitability | Ascen Cripto</title>
-  <meta name="description" content="Questionário de enquadramento de perfil de investidor — Ascen Cripto" />
-  <meta property="og:title" content="Suitability | Ascen Cripto" />
+  <title>Suitability | Ascen Strategy</title>
+  <meta name="description" content="Questionário de enquadramento de perfil de investidor — Ascen Strategy" />
+  <meta name="theme-color" content="#0A1A2E" />
+  <meta property="og:title" content="Suitability | Ascen Strategy" />
   <meta property="og:description" content="Descubra seu perfil de investidor e a modalidade de consultoria ideal para você." />
   <link rel="icon" href="logo.png" />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -37,7 +38,6 @@
     .label-mono{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange)}
     .label-mono.sec{color:var(--text-sec)}
     .label-mono.gold{color:var(--gold)}
-
     /* WELCOME */
     .welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:90vh;text-align:center}
     .welcome .divider{width:42px;height:1px;background:rgba(255,102,0,0.45);margin:24px 0}
@@ -51,7 +51,6 @@
     .welcome input:focus{border-color:var(--orange);box-shadow:0 0 0 3px var(--orange-glow)}
     .welcome input::placeholder{color:rgba(143,168,188,0.5)}
     .welcome small{font-size:12px;color:var(--text-mut);margin-top:20px}
-
     /* BOTÕES */
     .btn-primary{background:linear-gradient(135deg,var(--orange),var(--gold));color:var(--white);border:none;
       padding:15px 52px;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;
@@ -69,7 +68,6 @@
     .btn-pdf{background:rgba(255,255,255,0.05);color:var(--text);border:1px solid rgba(255,255,255,0.10);
       padding:12px 26px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer}
     .btn-pdf:hover{border-color:var(--gold);color:var(--gold)}
-
     /* QUIZ HEADER */
     .qhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
     .qhead-left{display:flex;align-items:center;gap:10px}
@@ -97,7 +95,19 @@
     .opt-btn.selected .radio{border-color:var(--orange)}
     .radio-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);display:none}
     .opt-btn.selected .radio-dot{display:block}
-
+    .radio.square{border-radius:5px}
+    .radio.square .radio-dot{border-radius:2px}
+    /* CADASTRO */
+    .cad-field{margin-bottom:16px}
+    .cad-field label{display:block;font-size:12px;font-weight:600;color:var(--text-sec);margin-bottom:6px;letter-spacing:.3px}
+    .cad-field label .req{color:var(--orange)}
+    .cad-field input,.cad-field select{width:100%;background:rgba(255,255,255,0.04);border:1.5px solid var(--border);color:var(--white);
+      padding:13px 16px;border-radius:12px;font-size:15px;outline:none;font-family:'Sora',sans-serif;transition:border-color .2s,box-shadow .2s}
+    .cad-field input:focus,.cad-field select:focus{border-color:var(--orange);box-shadow:0 0 0 3px var(--orange-glow)}
+    .cad-field input::placeholder{color:rgba(143,168,188,0.5)}
+    .cad-field select option{background:#0a1a2e;color:#fff}
+    .cad-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:560px){.cad-row{grid-template-columns:1fr}}
     /* RESULT */
     .result-head{text-align:center;margin-bottom:36px}
     .result-head img{width:56px;height:56px;border-radius:8px;display:block;margin:0 auto}
@@ -117,7 +127,6 @@
     .modalidade-card h3{font-size:30px;font-weight:800;margin:0 0 4px}
     .modalidade-card .sub{font-size:13px;color:var(--text);margin:0 0 14px;font-style:italic}
     .modalidade-card .desc{font-size:14px;line-height:1.7;color:var(--text-sec);max-width:480px;margin:0 auto}
-
     /* SECTIONS */
     .section-card{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.06);border-radius:14px;
       padding:22px;margin-bottom:24px}
@@ -130,22 +139,22 @@
     .item-pill.strong{background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);color:#bbf7d0}
     .item-pill.weak{background:rgba(255,102,0,0.08);border:1px solid rgba(255,102,0,0.2);color:#fed7aa}
     .item-pill .check{flex-shrink:0;font-weight:700}
-
     .alert-box{display:flex;gap:12px;padding:14px 16px;border-radius:12px;margin-bottom:10px;font-size:13px;line-height:1.5}
     .alert-box.warning{background:rgba(234,179,8,0.08);border:1px solid rgba(234,179,8,0.25);color:#fef08a}
     .alert-box.info{background:rgba(46,91,118,0.15);border:1px solid var(--border);color:var(--text-sec)}
     .alert-icon{font-size:18px;flex-shrink:0}
-
     .detail-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
     .detail-row .name{font-size:12px;color:var(--text-sec);width:180px;flex-shrink:0}
     .detail-row .bar{flex:1;height:5px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden}
     .detail-row .fill{height:100%;border-radius:3px;transition:width 1s ease}
     .detail-row .pts{font-family:'Space Mono',monospace;font-size:12px;font-weight:600;color:var(--text);width:50px;text-align:right}
-
     /* CTAs */
     .cta-row{display:flex;flex-direction:column;gap:14px;align-items:center;margin-bottom:16px}
     .cta-secondary-row{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
-
+    /* status do envio */
+    .send-status{font-size:12px;color:var(--text-mut);text-align:center;margin-bottom:14px;min-height:16px}
+    .send-status.ok{color:var(--green)}
+    .send-status.err{color:var(--yellow)}
     @media(max-width:640px){
       .gauges{gap:20px}
       .result-head h2{font-size:24px}
@@ -163,7 +172,6 @@
 <div class="bg-glow2"></div>
 <div class="grid"></div>
 <div id="app"></div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 // ============================================================
@@ -172,6 +180,45 @@
 const LOGO = "logo.png";
 const WHATSAPP_BASE = "https://wa.me/558596533434";
 
+// CAMINHO 1 (principal) — envio direto para o Google Form.
+// A resposta cai automaticamente na planilha de respostas do Form.
+const GOOGLE_FORM_ID = "1FAIpQLSfuR78ThPtFWKO7dwXkFlTOHTxJgxcKVa_tagyHOisxR3Y7vA";
+const GOOGLE_FORM_ACTION =
+  "https://docs.google.com/forms/d/e/" + GOOGLE_FORM_ID + "/formResponse";
+
+// Mapa: campo lógico -> entry.ID do Form (extraídos do link de prefill)
+const FORM_ENTRIES = {
+  nome:            "entry.979645034",
+  nacionalidade:   "entry.810042357",
+  cpf:             "entry.1261652586",
+  endereco:        "entry.1230689849",
+  telefone:        "entry.685562726",
+  email:           "entry.1881763924",
+  canal:           "entry.1988708104",
+  investeTrad:     "entry.878876579",
+  investeCripto:   "entry.1611461355",
+  tempoCripto:     "entry.1980910773",
+  nivel:           "entry.1707582076",
+  objetivos:       "entry.1132284262", // múltipla escolha
+  temEstrategia:   "entry.89055574",
+  sobreEstrategia: "entry.1061090995",
+  valorCarteira:   "entry.1268278633",
+  percentual:      "entry.1442964842",
+  tolerancia:      "entry.1579919800",
+  temCorretora:    "entry.1702731581",
+  qualCorretora:   "entry.1462491473",
+  conheceDex:      "entry.2055498786",
+  periodo:         "entry.483318087",
+  frequencia:      "entry.687538754",
+  cupom:           "entry.695452647",
+  adicional:       "entry.671754045",
+  declaracao:      "entry.652355824",
+};
+
+// CAMINHO 2 (backup independente) — Google Apps Script -> e-mail + planilha própria.
+// >>> COLE AQUI A URL DO SEU GOOGLE APPS SCRIPT (passo a passo no guia) <<<
+// Se ficar vazia, o backup é pulado (mas o envio pro Form continua funcionando).
+const ENDPOINT_URL = "";
 // ============================================================
 // STEPS — 11 originais + 4 novas = 15 perguntas
 // Eixos: A=Risco, B=Operacional, C=Capital, D=Contexto (não pontua)
@@ -244,7 +291,6 @@ const STEPS = [
       {label:"Perdas grandes (30–50%) e segui investindo",value:7},
       {label:"Perdas grandes (acima de 50%) e voltei mais maduro",value:8},
     ]},
-
   // -------- EIXO B: OPERACIONAL --------
   {id:"exp_pratica",eixo:"B",title:"Experiência Prática",subtitle:"Qual seu nível de experiência operando com cripto?",icon:"🔧",maxPts:22,
     options:[
@@ -287,7 +333,6 @@ const STEPS = [
       {label:"7–15 horas por semana",value:10},
       {label:"Mais de 15 horas (acompanho diariamente)",value:12},
     ]},
-
   // -------- EIXO C: CAPITAL --------
   {id:"capital",eixo:"C",title:"Capital para Investimento em Cripto",subtitle:"Qual o volume total de capital que você tem ou planeja investir em criptoativos?",icon:"🏦",maxPts:null,
     options:[
@@ -298,7 +343,6 @@ const STEPS = [
       {label:"R$ 75.000 a R$ 200.000",value:"75k_200k"},
       {label:"Acima de R$ 200.000",value:"acima200k"},
     ]},
-
   // -------- EIXO D: CONTEXTO (não pontua, só classifica) --------
   {id:"objetivo",eixo:"D",title:"Objetivo Principal",subtitle:"Qual o seu principal objetivo investindo em cripto?",icon:"🎯",maxPts:null,
     options:[
@@ -310,7 +354,6 @@ const STEPS = [
       {label:"Curiosidade / aprendizado",value:"aprendizado"},
     ]},
 ];
-
 const OBJETIVO_LABELS = {
   especulacao: "Especulação curto prazo",
   patrimonial: "Construção patrimonial",
@@ -320,6 +363,70 @@ const OBJETIVO_LABELS = {
   aprendizado: "Curiosidade/aprendizado",
 };
 
+// ============================================================
+// PERGUNTAS EXTRAS — exigidas pelo Google Form (eixo "F").
+// Não pontuam no suitability; servem pra preencher o Form completo.
+// As OPÇÕES usam exatamente os textos que o Form espera.
+// ============================================================
+const STEPS_FORM = [
+  {id:"f_investe_trad",formField:"investeTrad",title:"Mercado Tradicional",subtitle:"Você investe no mercado financeiro tradicional?",icon:"🏦",
+    options:[{label:"Sim",value:"Sim"},{label:"Não",value:"Não"}]},
+  {id:"f_investe_cripto",formField:"investeCripto",title:"Criptoativos",subtitle:"Você investe em criptoativos/criptomoedas?",icon:"🪙",
+    options:[{label:"Sim",value:"Sim"},{label:"Não",value:"Não"}]},
+  {id:"f_nivel",formField:"nivel",title:"Nível de Conhecimento",subtitle:"Qual seu nível de conhecimento sobre criptoativos?",icon:"📚",
+    options:[
+      {label:"Leigo",value:"Leigo"},
+      {label:"Básico (conceitos gerais)",value:"Básico (conceitos gerais)"},
+      {label:"Intermediário (estratégias e plataformas)",value:"Intermediário (estratégias e plataformas)"},
+      {label:"Avançado (trading, DeFi, e gestão de carteiras)",value:"Avançado (trading, DeFi, e gestão de carteiras)"},
+    ]},
+  {id:"f_objetivos",formField:"objetivos",multi:true,title:"Objetivos Principais",subtitle:"Selecione um ou mais objetivos.",icon:"🎯",
+    options:[
+      {label:"Retornos Financeiros",value:"Retornos Financeiros"},
+      {label:"Proteger Patrimônio",value:"Proteger Patrimônio"},
+      {label:"Diversificação",value:"Diversificação"},
+      {label:"Aprender sobre o Mercado",value:"Aprender sobre o Mercado"},
+    ]},
+  {id:"f_tem_estrategia",formField:"temEstrategia",title:"Estratégia",subtitle:"Possui estratégia definida para o investimento em criptoativos?",icon:"🧭",
+    options:[{label:"Sim",value:"Sim"},{label:"Não",value:"Não"}]},
+  {id:"f_valor_carteira",formField:"valorCarteira",title:"Valor da Carteira de Cripto",subtitle:"Valor estimado da sua carteira de criptoativos.",icon:"💰",
+    options:[
+      {label:"Prefiro não dizer",value:"Prefiro não dizer"},
+      {label:"Menos de R$10.000",value:"Menos de R$10.000"},
+      {label:"R$10.000 – R$50.000",value:"R$10.000 – R$50.000"},
+      {label:"R$50.000 – R$200.000",value:"R$50.000 – R$200.000"},
+      {label:"Mais de R$200.000",value:"Mais de R$200.000"},
+      {label:"Não Possuo",value:"Não Possuo"},
+    ]},
+  {id:"f_percentual",formField:"percentual",title:"Percentual do Patrimônio",subtitle:"Qual percentual do seu patrimônio você gostaria de alocar em criptoativos?",icon:"📊",
+    options:[
+      {label:"Prefiro não dizer",value:"Prefiro não dizer"},
+      {label:"Menos de 15%",value:"Menos de 15%"},
+      {label:"Entre 15% e 40%",value:"Entre 15% e 40%"},
+      {label:"40% a 60%",value:"40% a 60%"},
+      {label:"Mais de 60%",value:"Mais de 60%"},
+    ]},
+  {id:"f_tolerancia",formField:"tolerancia",title:"Tolerância ao Risco",subtitle:"Tolerância ao risco em investimentos.",icon:"⚖️",
+    options:[
+      {label:"Conservador (priorizo segurança e proteção do patrimônio)",value:"Conservador (priorizo segurança e proteção do patrimônio)"},
+      {label:"Moderado (aceito algum risco para buscar retorno equilibrado)",value:"Moderado (aceito algum risco para buscar retorno equilibrado)"},
+      {label:"Agressivo (estou disposto a assumir maiores riscos para buscar altos retornos)",value:"Agressivo (estou disposto a assumir maiores riscos para buscar altos retornos)"},
+    ]},
+  {id:"f_tem_corretora",formField:"temCorretora",title:"Conta em Corretora",subtitle:"Possui conta em corretora?",icon:"🏛️",
+    options:[{label:"Sim",value:"Sim"},{label:"Não",value:"Não"}]},
+  {id:"f_conhece_dex",formField:"conheceDex",title:"Corretoras Descentralizadas",subtitle:"Possui conhecimento em corretoras descentralizadas (DEXs), como Uniswap ou Aerodrome?",icon:"🔗",
+    options:[{label:"Sim",value:"Sim"},{label:"Não",value:"Não"}]},
+  {id:"f_periodo",formField:"periodo",title:"Período de Contratação",subtitle:"Qual período de contratação você prefere?",icon:"📅",
+    options:[{label:"Semestral",value:"Semestral"},{label:"Anual",value:"Anual"}]},
+  {id:"f_frequencia",formField:"frequencia",title:"Frequência de Contato",subtitle:"(o contato será feito no canal de comunicação preferido)",icon:"📞",
+    options:[
+      {label:"Constantemente – Busco Diversas Informações",value:"Constantemente – Busco Diversas Informações"},
+      {label:"Ocasionalmente - Busco Informações Úteis e/ou Necessárias",value:"Ocasionalmente - Busco Informações Úteis e/ou Necessárias"},
+    ]},
+];
+// Marca essas perguntas com eixo "F" (Form-only, não pontua) e junta ao fluxo.
+STEPS_FORM.forEach(s => { s.eixo = "F"; if (s.maxPts === undefined) s.maxPts = null; });
+STEPS.push(...STEPS_FORM);
 // ============================================================
 // CLASSIFICAÇÃO
 // ============================================================
@@ -352,7 +459,6 @@ function getCapitalFaixa(c) {
   if (c==="15k_35k" || c==="35k_75k") return "medio";
   return "elevado";
 }
-
 // Mantida lógica original de modalidade
 function getConsultoria(rS, oS, capital) {
   const f = getCapitalFaixa(capital);
@@ -374,7 +480,6 @@ function getConsultoria(rS, oS, capital) {
   if (oS <= 50) return {tipo:"Start",nome:"Cripto Start",emoji:"🎓",subtipo:"Com base operacional",desc:"Você já tem alguma experiência. Start com foco em organizar sua estrutura e preparar para crescimento."};
   return {tipo:"Start",nome:"Cripto Start",emoji:"🎓",subtipo:"Acelerada",desc:"Boa maturidade operacional, mas capital ainda inicial. Start acelerado visando migrar para Standard rapidamente."};
 }
-
 // ============================================================
 // ANÁLISE: pontos fortes/fracos + alertas + prioridade
 // ============================================================
@@ -388,7 +493,6 @@ function analyze(answers, rS, oS, capFaixa) {
   // Top 3 fortes (ratio >= 0.7) e top 3 fracos (ratio <= 0.4)
   const fortes = ratios.filter(r => r.ratio >= 0.7).sort((a,b)=>b.ratio-a.ratio).slice(0,3);
   const fracos = ratios.filter(r => r.ratio <= 0.4).sort((a,b)=>a.ratio-b.ratio).slice(0,3);
-
   // Alertas / inconsistências
   const alertas = [];
   // Capital alto + risco baixo
@@ -421,7 +525,6 @@ function analyze(answers, rS, oS, capFaixa) {
   if (answers["perda_real"] === 0 && rS >= 80) {
     alertas.push({tipo:"info",text:"Tolerância a risco declarada como alta sem ter passado por perdas reais — a tolerância pode mudar na prática."});
   }
-
   // Prioridade do lead (pra você)
   let prioridade = "média";
   let prioridadeEmoji = "🟡";
@@ -429,19 +532,25 @@ function analyze(answers, rS, oS, capFaixa) {
   else if (capFaixa === "elevado") { prioridade = "alta"; prioridadeEmoji = "🟠"; }
   else if (capFaixa === "medio" && oS >= 70) { prioridade = "alta"; prioridadeEmoji = "🟠"; }
   else if (capFaixa === "baixo" && oS <= 30) { prioridade = "baixa"; prioridadeEmoji = "🟢"; }
-
   return { fortes, fracos, alertas, prioridade, prioridadeEmoji };
 }
-
 // ============================================================
 // STATE
 // ============================================================
 const state = {
-  step: -1,
+  step: -2,        // -2 = welcome, -1 = cadastro, 0..N = perguntas, N = resultado
   answers: {},
   nome: "",
+  cadastro: {      // dados que vão direto pro Form
+    nacionalidade: "",
+    cpf: "",
+    endereco: "",
+    telefone: "",
+    email: "",
+    canal: "WhatsApp",
+  },
+  enviado: false, // evita envio duplicado
 };
-
 // ============================================================
 // HELPERS
 // ============================================================
@@ -450,7 +559,6 @@ function el(html) {
   t.innerHTML = html.trim();
   return t.content.firstChild;
 }
-
 function fadeRender(html) {
   const app = document.getElementById("app");
   const old = app.querySelector(".container");
@@ -470,28 +578,192 @@ function fadeRender(html) {
     apply();
   }
 }
-
 function go(n) { state.step = n; render(); window.scrollTo({top:0, behavior:"smooth"}); }
+function advance() {
+  if (state.step < STEPS.length - 1) go(state.step + 1);
+  else go(STEPS.length);
+}
 function pickAnswer(id, value) {
   state.answers[id] = value;
-  setTimeout(() => {
-    if (state.step < STEPS.length - 1) go(state.step + 1);
-    else go(STEPS.length);
-  }, 160);
+  setTimeout(advance, 160);
 }
-function resetAll() { state.answers = {}; go(-1); }
+// Múltipla escolha: alterna o valor no array, sem avançar automaticamente.
+function toggleAnswer(id, value) {
+  const arr = Array.isArray(state.answers[id]) ? state.answers[id].slice() : [];
+  const i = arr.indexOf(value);
+  if (i === -1) arr.push(value); else arr.splice(i, 1);
+  state.answers[id] = arr;
+  renderQuestion(); // re-render pra atualizar o "selecionado"
+}
+function resetAll() { state.answers = {}; state.enviado = false; go(-2); }
 function setNome(v) { state.nome = v; const btn = document.getElementById("startBtn"); if (btn) btn.disabled = !v.trim(); }
+// ---- Cadastro ----
+function setCadastro(campo, v) { state.cadastro[campo] = v; validaCadastro(); }
+function validaCadastro() {
+  const btn = document.getElementById("cadastroBtn");
+  if (!btn) return;
+  const c = state.cadastro;
+  const emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test((c.email || "").trim());
+  const ok = state.nome.trim() && c.telefone.trim() && emailOk;
+  btn.disabled = !ok;
+}
+// ============================================================
+// CAMINHO 1 — ENVIO PARA O GOOGLE FORM
+// ============================================================
+// Mapeia capital do Form a partir da escolha "f_valor_carteira" (já está
+// no texto exato do Form). Idem percentual e tolerância.
+function montarPayloadForm() {
+  const a = state.answers;
+  const c = state.cadastro;
+  const p = {};
 
+  // Cadastro (texto livre)
+  p[FORM_ENTRIES.nome]          = state.nome || "";
+  p[FORM_ENTRIES.nacionalidade] = c.nacionalidade || "";
+  p[FORM_ENTRIES.cpf]           = c.cpf || "";
+  p[FORM_ENTRIES.endereco]      = c.endereco || "";
+  p[FORM_ENTRIES.telefone]      = c.telefone || "";
+  p[FORM_ENTRIES.email]         = c.email || "";
+  p[FORM_ENTRIES.canal]         = c.canal || "WhatsApp";
+
+  // Perguntas do eixo F — o value já é o texto exato esperado pelo Form
+  if (a.f_investe_trad)   p[FORM_ENTRIES.investeTrad]   = a.f_investe_trad;
+  if (a.f_investe_cripto) p[FORM_ENTRIES.investeCripto] = a.f_investe_cripto;
+  if (a.f_nivel)          p[FORM_ENTRIES.nivel]         = a.f_nivel;
+  if (a.f_tem_estrategia) p[FORM_ENTRIES.temEstrategia] = a.f_tem_estrategia;
+  if (a.f_valor_carteira) p[FORM_ENTRIES.valorCarteira] = a.f_valor_carteira;
+  if (a.f_percentual)     p[FORM_ENTRIES.percentual]    = a.f_percentual;
+  if (a.f_tolerancia)     p[FORM_ENTRIES.tolerancia]    = a.f_tolerancia;
+  if (a.f_tem_corretora)  p[FORM_ENTRIES.temCorretora]  = a.f_tem_corretora;
+  if (a.f_conhece_dex)    p[FORM_ENTRIES.conheceDex]    = a.f_conhece_dex;
+  if (a.f_periodo)        p[FORM_ENTRIES.periodo]       = a.f_periodo;
+  if (a.f_frequencia)     p[FORM_ENTRIES.frequencia]    = a.f_frequencia;
+
+  // Objetivos é múltipla escolha -> array de valores
+  p[FORM_ENTRIES.objetivos] = Array.isArray(a.f_objetivos) ? a.f_objetivos : [];
+
+  // Tempo investindo (texto) — não temos pergunta dedicada; deixamos vazio.
+  // Declaração obrigatória
+  p[FORM_ENTRIES.declaracao] = "Concordo";
+
+  return p;
+}
+// Envia via <form> oculto apontando pra um iframe invisível.
+// É o método mais confiável pro Google Forms (sem bloqueio de CORS).
+// Converte o payload em corpo url-encoded (entry=valor&entry=valor...).
+// Campos de múltipla escolha viram várias chaves iguais (formato que o Form espera).
+function payloadParaBody(payload) {
+  const partes = [];
+  Object.keys(payload).forEach(function (entry) {
+    const val = payload[entry];
+    const vals = Array.isArray(val) ? val : [val];
+    vals.forEach(function (v) {
+      if (v === "" || v === null || v === undefined) return;
+      partes.push(encodeURIComponent(entry) + "=" + encodeURIComponent(v));
+    });
+  });
+  return partes.join("&");
+}
+// Envia pro Google Form via fetch no-cors (método mais confiável).
+// Importante: com no-cors a resposta vem "opaca" — NÃO dá pra ler status.
+// Por isso o "sucesso" real é garantido pelo backup local + e-mail, não por aqui.
+function enviarParaForm(payload) {
+  const body = payloadParaBody(payload);
+  // Tentativa 1: fetch no-cors (não bloqueia, não dá pra ler resposta)
+  try {
+    fetch(GOOGLE_FORM_ACTION, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body,
+    }).catch(function (e) { console.warn("fetch Form falhou, tentando iframe:", e); });
+  } catch (e) {
+    console.warn("fetch Form indisponível:", e);
+  }
+  // Tentativa 2 (redundante, em paralelo): <form> oculto -> iframe.
+  // Dois métodos aumentam a chance de a submissão chegar.
+  try {
+    let iframe = document.getElementById("hidden_form_iframe");
+    if (!iframe) {
+      iframe = document.createElement("iframe");
+      iframe.name = "hidden_form_iframe";
+      iframe.id = "hidden_form_iframe";
+      iframe.style.display = "none";
+      document.body.appendChild(iframe);
+    }
+    const form = document.createElement("form");
+    form.action = GOOGLE_FORM_ACTION;
+    form.method = "POST";
+    form.target = "hidden_form_iframe";
+    form.style.display = "none";
+    Object.keys(payload).forEach(function (entry) {
+      const val = payload[entry];
+      const vals = Array.isArray(val) ? val : [val];
+      vals.forEach(function (v) {
+        if (v === "" || v === null || v === undefined) return;
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = entry;
+        input.value = v;
+        form.appendChild(input);
+      });
+    });
+    document.body.appendChild(form);
+    form.submit();
+    setTimeout(function () { form.remove(); }, 1500);
+  } catch (e) {
+    console.error("Falha no envio via iframe:", e);
+  }
+  // Retorna true apenas no sentido de "disparou" — a confirmação real
+  // vem do backup local (sempre grava) e do e-mail.
+  return true;
+}
+// ============================================================
+// CAMINHO 2 — ENVIO DE BACKUP PARA O APPS SCRIPT (planilha + e-mail)
+// ============================================================
+// Usa text/plain de propósito: evita o "preflight" CORS que o
+// Google Apps Script não consegue responder. O backend faz JSON.parse.
+function enviarRespostas(payload) {
+  if (!ENDPOINT_URL) {
+    console.warn("ENDPOINT_URL vazio — respostas NÃO foram enviadas. Cole a URL do Apps Script.");
+    setSendStatus("err", "⚠️ Envio não configurado (cole a URL do Apps Script no código).");
+    return;
+  }
+  if (state.enviado) return;
+  state.enviado = true;
+  setSendStatus("", "Enviando suas respostas…");
+
+  fetch(ENDPOINT_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload),
+  })
+    .then(function (r) { return r.text(); })
+    .then(function () {
+      setSendStatus("ok", "✓ Respostas registradas com sucesso.");
+    })
+    .catch(function (err) {
+      console.error("Falha ao enviar respostas:", err);
+      state.enviado = false; // permite retry se a pessoa não saiu da tela
+      setSendStatus("err", "⚠️ Não conseguimos registrar automaticamente. Use o botão do WhatsApp abaixo.");
+    });
+}
+function setSendStatus(cls, msg) {
+  const node = document.getElementById("sendStatus");
+  if (!node) return;
+  node.className = "send-status " + (cls || "");
+  node.textContent = msg || "";
+}
 // ============================================================
 // SCREENS
 // ============================================================
 function renderWelcome() {
   fadeRender(`
     <div class="container welcome">
-      <img src="${LOGO}" alt="Ascen Cripto" class="logo-img" />
+      <img src="${LOGO}" alt="Ascen Strategy" class="logo-img" />
       <div class="divider"></div>
       <h1>Suitability</h1>
-      <p class="brand">Ascen Cripto</p>
+      <p class="brand">Ascen Strategy</p>
       <p class="intro">
         Questionário para identificar seu
         <span class="o">perfil de risco</span>,
@@ -499,28 +771,103 @@ function renderWelcome() {
         e a <span class="b">modalidade de consultoria</span> mais adequada.
       </p>
       <input type="text" id="nomeInput" placeholder="Digite seu nome" value="${state.nome}" oninput="setNome(this.value)" />
-      <button class="btn-primary" id="startBtn" ${state.nome.trim() ? '' : 'disabled'} onclick="go(0)">Iniciar avaliação</button>
-      <small>15 perguntas · ~5 minutos</small>
+      <button class="btn-primary" id="startBtn" ${state.nome.trim() ? '' : 'disabled'} onclick="go(-1)">Iniciar avaliação</button>
+      <small>~5 minutos</small>
     </div>
   `);
 }
+function renderCadastro() {
+  const c = state.cadastro;
+  fadeRender(`
+    <div class="container">
+      <div class="qhead">
+        <div class="qhead-left">
+          <img src="${LOGO}" alt="">
+          <span>Suitability</span>
+        </div>
+        <span class="qhead-step">Cadastro</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:4%;background:linear-gradient(90deg,#2e5b76,#2e5b76aa)"></div></div>
+      <button class="back-btn" onclick="go(-2)">← Voltar</button>
+      <div class="eixo-tag" style="background:#2e5b7612;border:1px solid #2e5b7633">
+        <span style="color:#2e5b76">Dados de Cadastro</span>
+      </div>
+      <div class="qtitle"><span>📝</span><h2>Seus dados</h2></div>
+      <p class="qsubtitle">Precisamos desses dados para o seu cadastro na Ascen Strategy. Campos com <span style="color:var(--orange)">*</span> são obrigatórios.</p>
 
+      <div class="cad-field">
+        <label>Nome completo <span class="req">*</span></label>
+        <input type="text" placeholder="Seu nome" value="${state.nome.replace(/"/g,'&quot;')}" oninput="setNome(this.value);validaCadastro()" />
+      </div>
+      <div class="cad-row">
+        <div class="cad-field">
+          <label>E-mail <span class="req">*</span></label>
+          <input type="email" placeholder="voce@email.com" value="${(c.email||'').replace(/"/g,'&quot;')}" oninput="setCadastro('email',this.value)" />
+        </div>
+        <div class="cad-field">
+          <label>Telefone (WhatsApp) <span class="req">*</span></label>
+          <input type="tel" placeholder="+55 (85) 90000-0000" value="${(c.telefone||'').replace(/"/g,'&quot;')}" oninput="setCadastro('telefone',this.value)" />
+        </div>
+      </div>
+      <div class="cad-row">
+        <div class="cad-field">
+          <label>CPF</label>
+          <input type="text" placeholder="000.000.000-00" value="${(c.cpf||'').replace(/"/g,'&quot;')}" oninput="setCadastro('cpf',this.value)" />
+        </div>
+        <div class="cad-field">
+          <label>Nacionalidade</label>
+          <input type="text" placeholder="brasileiro(a)" value="${(c.nacionalidade||'').replace(/"/g,'&quot;')}" oninput="setCadastro('nacionalidade',this.value)" />
+        </div>
+      </div>
+      <div class="cad-field">
+        <label>Endereço</label>
+        <input type="text" placeholder="Rua, número, cidade" value="${(c.endereco||'').replace(/"/g,'&quot;')}" oninput="setCadastro('endereco',this.value)" />
+      </div>
+      <div class="cad-field">
+        <label>Canal de comunicação preferido</label>
+        <select onchange="setCadastro('canal',this.value)">
+          <option value="WhatsApp" ${c.canal==='WhatsApp'?'selected':''}>WhatsApp</option>
+          <option value="Telegram" ${c.canal==='Telegram'?'selected':''}>Telegram</option>
+          <option value="E-mail" ${c.canal==='E-mail'?'selected':''}>E-mail</option>
+        </select>
+      </div>
+
+      <div style="text-align:center;margin-top:8px">
+        <button class="btn-primary" id="cadastroBtn" onclick="go(0)">Continuar para o questionário</button>
+      </div>
+    </div>
+  `);
+  validaCadastro();
+}
 function renderQuestion() {
   const cur = STEPS[state.step];
-  const eixoLabel = {A:"Perfil de Risco", B:"Perfil Operacional", C:"Critério Financeiro", D:"Contexto"}[cur.eixo];
-  const eixoColor = {A:"#ff6600", B:"#06b6d4", C:"#c9a96e", D:"#8b5cf6"}[cur.eixo];
+  const eixoLabel = {A:"Perfil de Risco", B:"Perfil Operacional", C:"Critério Financeiro", D:"Contexto", F:"Cadastro / Perfil"}[cur.eixo];
+  const eixoColor = {A:"#ff6600", B:"#06b6d4", C:"#c9a96e", D:"#8b5cf6", F:"#2e5b76"}[cur.eixo];
   const progress = ((state.step + 1) / STEPS.length) * 100;
-
+  const isMulti = !!cur.multi;
   const optsHtml = cur.options.map((opt, i) => {
-    const sel = state.answers[cur.id] === opt.value;
+    const cval = JSON.stringify(opt.value).replace(/'/g, "\\'");
+    let sel;
+    if (isMulti) {
+      const arr = state.answers[cur.id] || [];
+      sel = Array.isArray(arr) && arr.indexOf(opt.value) !== -1;
+    } else {
+      sel = state.answers[cur.id] === opt.value;
+    }
+    const handler = isMulti
+      ? `toggleAnswer('${cur.id}', ${cval})`
+      : `pickAnswer('${cur.id}', ${cval})`;
     return `
-      <button class="opt-btn ${sel ? 'selected' : ''}" onclick='pickAnswer("${cur.id}", ${typeof opt.value === "string" ? `"${opt.value}"` : opt.value})'>
-        <span class="radio"><span class="radio-dot"></span></span>
+      <button class="opt-btn ${sel ? 'selected' : ''}" onclick='${handler}'>
+        <span class="radio${isMulti ? ' square' : ''}"><span class="radio-dot"></span></span>
         <span>${opt.label}</span>
       </button>
     `;
   }).join("");
-
+  // Em perguntas de múltipla escolha, mostramos um botão "Continuar".
+  const multiContinue = isMulti
+    ? `<button class="btn-primary" style="margin-top:20px" onclick="advance()">Continuar</button>`
+    : "";
   fadeRender(`
     <div class="container">
       <div class="qhead">
@@ -533,20 +880,19 @@ function renderQuestion() {
       <div class="progress-bar">
         <div class="progress-fill" style="width:${progress}%;background:linear-gradient(90deg, ${eixoColor}, ${eixoColor}aa)"></div>
       </div>
-      ${state.step > 0 ? '<button class="back-btn" onclick="go('+(state.step-1)+')">← Voltar</button>' : ''}
+      ${state.step > 0 ? '<button class="back-btn" onclick="go('+(state.step-1)+')">← Voltar</button>' : '<button class="back-btn" onclick="go(-1)">← Voltar</button>'}
       <div class="eixo-tag" style="background:${eixoColor}12;border:1px solid ${eixoColor}33">
         <span style="color:${eixoColor}">Eixo ${cur.eixo} · ${eixoLabel}</span>
       </div>
       <div class="qtitle"><span>${cur.icon}</span><h2>${cur.title}</h2></div>
       <p class="qsubtitle">${cur.subtitle}</p>
       <div class="opt-list">${optsHtml}</div>
+      ${multiContinue}
     </div>
   `);
 }
-
 // Lista de gauges pendentes pra animar depois que o HTML for inserido no DOM
 const _pendingGauges = [];
-
 function gaugeSVG(score, max, color) {
   const r = 70;
   const circ = Math.PI * r;
@@ -566,7 +912,6 @@ function gaugeSVG(score, max, color) {
     </svg>
   `;
 }
-
 function animateGauges() {
   // Roda 200ms depois pra dar tempo do CSS aplicar o estado inicial
   setTimeout(() => {
@@ -577,7 +922,6 @@ function animateGauges() {
     }
   }, 200);
 }
-
 function renderResult() {
   const rS = STEPS.filter(s=>s.eixo==="A").reduce((a,s)=>a+(typeof state.answers[s.id]==="number"?state.answers[s.id]:0),0);
   const oS = STEPS.filter(s=>s.eixo==="B").reduce((a,s)=>a+(typeof state.answers[s.id]==="number"?state.answers[s.id]:0),0);
@@ -588,25 +932,20 @@ function renderResult() {
   const con = getConsultoria(rS, oS, cap);
   const cf = getCapitalFaixa(cap);
   const an = analyze(state.answers, rS, oS, cf);
-
   const idadeOpt = STEPS.find(s=>s.id==="idade").options.find(o=>o.value === state.answers["idade"]);
   const idadeLabel = idadeOpt ? idadeOpt.label : "—";
-
   const tipoColor = {VIP:"#ff6600", Standard:"#06b6d4", Start:"#c9a96e"}[con.tipo];
   const FC = {baixo:"#8b5cf6", medio:"#06b6d4", elevado:"#ff6600"};
-
   const fortesHtml = an.fortes.length
     ? an.fortes.map(f=>`<div class="item-pill strong"><span class="check">✓</span><span>${f.title} (${f.value}/${f.max})</span></div>`).join("")
     : '<div class="item-pill" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);color:var(--text-mut);font-style:italic">Nenhum critério com pontuação alta.</div>';
   const fracosHtml = an.fracos.length
     ? an.fracos.map(f=>`<div class="item-pill weak"><span class="check">!</span><span>${f.title} (${f.value}/${f.max})</span></div>`).join("")
     : '<div class="item-pill" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);color:var(--text-mut);font-style:italic">Nenhum critério crítico identificado.</div>';
-
   const alertasHtml = an.alertas.length
     ? an.alertas.map(a=>`<div class="alert-box ${a.tipo}"><span class="alert-icon">${a.tipo==='warning'?'⚠️':'ℹ️'}</span><span>${a.text}</span></div>`).join("")
     : '';
-
-  const detailsHtml = STEPS.filter(s=>s.eixo!=="C" && s.eixo!=="D").map(s=>{
+  const detailsHtml = STEPS.filter(s=>s.eixo==="A" || s.eixo==="B").map(s=>{
     const v = state.answers[s.id] || 0;
     const m = s.maxPts;
     const bc = s.eixo === "A" ? "#ff6600" : "#06b6d4";
@@ -618,57 +957,62 @@ function renderResult() {
       </div>
     `;
   }).join("");
-
   // Mensagem do WhatsApp — RICA com diagnóstico
   const fortesTxt = an.fortes.length ? an.fortes.map(f=>`• ${f.title} (${f.value}/${f.max})`).join("\n") : "—";
   const fracosTxt = an.fracos.length ? an.fracos.map(f=>`• ${f.title} (${f.value}/${f.max})`).join("\n") : "—";
   const alertasTxt = an.alertas.length ? an.alertas.map(a=>`• ${a.text}`).join("\n") : "Nenhum alerta crítico identificado.";
-
+  // Objetivos: do quiz (eixo D) ou da múltipla escolha do Form
+  const objetivoForm = Array.isArray(state.answers.f_objetivos) && state.answers.f_objetivos.length
+    ? state.answers.f_objetivos.join(", ")
+    : (OBJETIVO_LABELS[objetivo] || objetivo);
+  // Capital pra exibição/backup: prioriza a faixa do Form, se respondida
+  const capitalBackup = state.answers.f_valor_carteira || getCapitalLabel(cap);
   const wppMsg =
 `${an.prioridadeEmoji} *${con.nome}${con.subtipo ? " — " + con.subtipo : ""}*
-
-Olá! Acabei de fazer o suitability da Ascen Cripto.
-
+Olá! Acabei de fazer o suitability da Ascen Strategy.
 *👤 Dados*
 Nome: ${state.nome || "—"}
+E-mail: ${state.cadastro.email || "—"}
+Telefone: ${state.cadastro.telefone || "—"}
 Idade: ${idadeLabel}
-Capital: ${getCapitalLabel(cap)}
-Objetivo: ${OBJETIVO_LABELS[objetivo] || objetivo}
-
+Capital: ${capitalBackup}
+Objetivo: ${objetivoForm}
 *📊 Perfil*
 Risco: ${rP.label} (${rS}/100)
 Operacional: ${oP.label} (${oS}/100)
-
 *✓ Pontos fortes*
 ${fortesTxt}
-
 *! Pontos a desenvolver*
 ${fracosTxt}
-
 *⚠️ Observações*
 ${alertasTxt}
-
 Gostaria de conversar sobre a ${con.nome}.`;
-
   const wppHref = `${WHATSAPP_BASE}?text=${encodeURIComponent(wppMsg)}`;
-
-  // Salva pra usar no PDF
-  window._resultData = {
+  // Objeto único usado pra PDF e pro envio de backup (Apps Script)
+  const resultData = {
     nome: state.nome || "—",
+    email: state.cadastro.email || "—",
+    telefone: state.cadastro.telefone || "—",
+    cpf: state.cadastro.cpf || "—",
+    endereco: state.cadastro.endereco || "—",
+    nacionalidade: state.cadastro.nacionalidade || "—",
+    canal: state.cadastro.canal || "—",
     idade: idadeLabel,
     risco: rP.label,
     riscoScore: rS,
     operacional: oP.label,
     operacionalScore: oS,
-    capital: getCapitalLabel(cap),
-    objetivo: OBJETIVO_LABELS[objetivo] || objetivo,
+    capital: capitalBackup,
+    percentual: state.answers.f_percentual || "—",
+    objetivo: objetivoForm,
     modalidade: con.nome + (con.subtipo ? " — " + con.subtipo : ""),
     descricao: con.desc,
+    prioridade: an.prioridade,
     fortes: an.fortes.map(f=>`${f.title} (${f.value}/${f.max})`),
     fracos: an.fracos.map(f=>`${f.title} (${f.value}/${f.max})`),
     alertas: an.alertas.map(a=>a.text),
   };
-
+  window._resultData = resultData;
   fadeRender(`
     <div class="container">
       <div class="result-head">
@@ -676,7 +1020,6 @@ Gostaria de conversar sobre a ${con.nome}.`;
         <p class="lbl">Resultado da avaliação</p>
         <h2>Seu enquadramento</h2>
       </div>
-
       <div class="gauges">
         <div class="gauge-wrap">
           ${gaugeSVG(rS, 100, rP.color)}
@@ -687,13 +1030,11 @@ Gostaria de conversar sobre a ${con.nome}.`;
           <span class="gauge-label" style="color:${oP.color}">${oP.label}</span>
         </div>
       </div>
-
       <div class="summary-cards">
         <div class="scard"><p>Eixo A · Risco</p><p class="value" style="color:${rP.color}">${rP.label}</p></div>
         <div class="scard"><p>Eixo B · Operacional</p><p class="value" style="color:${oP.color}">${oP.label}</p></div>
-        <div class="scard"><p>Eixo C · Capital</p><p class="value" style="color:${FC[cf]}">${getCapitalLabel(cap)}</p></div>
+        <div class="scard"><p>Eixo C · Capital</p><p class="value" style="color:${FC[cf]}">${capitalBackup}</p></div>
       </div>
-
       <div class="modalidade-card" style="background:linear-gradient(135deg, ${tipoColor}14, ${tipoColor}08);border:1px solid ${tipoColor}35">
         <span class="emoji">${con.emoji}</span>
         <p class="lbl">Modalidade indicada</p>
@@ -701,7 +1042,6 @@ Gostaria de conversar sobre a ${con.nome}.`;
         ${con.subtipo ? `<p class="sub">${con.subtipo}</p>` : ""}
         <p class="desc">${con.desc}</p>
       </div>
-
       <div class="section-card">
         <p class="stitle">Pontos fortes e a desenvolver</p>
         <div class="strong-weak-grid">
@@ -715,19 +1055,17 @@ Gostaria de conversar sobre a ${con.nome}.`;
           </div>
         </div>
       </div>
-
       ${an.alertas.length ? `
       <div class="section-card">
         <p class="stitle">Observações</p>
         ${alertasHtml}
       </div>
       ` : ""}
-
       <div class="section-card">
         <p class="stitle">Detalhamento por critério</p>
         ${detailsHtml}
       </div>
-
+      <p id="sendStatus" class="send-status"></p>
       <div class="cta-row">
         <a href="${wppHref}" target="_blank" rel="noopener noreferrer" class="btn-wpp">
           💬 Falar com a Ascen no WhatsApp
@@ -739,14 +1077,141 @@ Gostaria de conversar sobre a ${con.nome}.`;
       </div>
     </div>
   `);
+  // Envia as respostas assim que o resultado aparece — sem depender de clique.
+  // Dois caminhos independentes, em paralelo.
+  enviarTudo(resultData);
 }
+// ============================================================
+// CAMINHO 3 — BACKUP LOCAL NO PRÓPRIO APP (localStorage)
+// ------------------------------------------------------------
+// Grava CADA submissão no próprio navegador. Não depende de
+// internet, nem do Form, nem do e-mail. É à prova de falha de rede.
+// Você recupera tudo pela tela de admin (suitability.html?admin=1)
+// ou exportando CSV. É o seu colchão de segurança definitivo.
+// ============================================================
+const LS_KEY = "ascen_suitability_respostas";
+function gravarLocal(resultData) {
+  try {
+    const reg = Object.assign({ _quando: new Date().toISOString() }, resultData);
+    let lista = [];
+    try { lista = JSON.parse(localStorage.getItem(LS_KEY) || "[]"); } catch (e) { lista = []; }
+    lista.push(reg);
+    localStorage.setItem(LS_KEY, JSON.stringify(lista));
+    return true;
+  } catch (e) {
+    console.error("Falha ao gravar local:", e);
+    return false;
+  }
+}
+function lerLocal() {
+  try { return JSON.parse(localStorage.getItem(LS_KEY) || "[]"); }
+  catch (e) { return []; }
+}
+function baixarBackupCSV() {
+  const lista = lerLocal();
+  if (!lista.length) { alert("Nenhuma resposta gravada neste dispositivo ainda."); return; }
+  const cols = ["_quando","nome","email","telefone","cpf","endereco","nacionalidade","canal",
+    "idade","capital","percentual","objetivo","risco","riscoScore","operacional",
+    "operacionalScore","modalidade","prioridade","fortes","fracos","alertas"];
+  const esc = function (v) {
+    if (Array.isArray(v)) v = v.join(" | ");
+    v = (v === undefined || v === null) ? "" : String(v);
+    return '"' + v.replace(/"/g, '""') + '"';
+  };
+  const linhas = [cols.join(",")];
+  lista.forEach(function (r) { linhas.push(cols.map(function (c) { return esc(r[c]); }).join(",")); });
+  const blob = new Blob(["﻿" + linhas.join("\r\n")], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "suitability-backup-" + new Date().toISOString().slice(0,10) + ".csv";
+  document.body.appendChild(a); a.click(); a.remove();
+}
+// ============================================================
+// ORQUESTRAÇÃO — dispara os 3 caminhos
+// ============================================================
+function enviarTudo(resultData) {
+  if (state.enviado) return;
+  state.enviado = true;
+  setSendStatus("", "Registrando suas respostas…");
 
+  // Caminho 3 (SEMPRE primeiro): backup local garantido.
+  const localOk = gravarLocal(resultData);
+
+  // Caminho 1: Google Form (principal)
+  try { enviarParaForm(montarPayloadForm()); } catch (e) { console.error(e); }
+
+  // Caminho 2: Apps Script -> e-mail + planilha (backup externo)
+  let backupPromise = Promise.resolve(false);
+  if (ENDPOINT_URL) {
+    backupPromise = fetch(ENDPOINT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(resultData),
+    }).then(function (r) { return r.text(); }).then(function () { return true; })
+      .catch(function (err) { console.error("Backup e-mail falhou:", err); return false; });
+  }
+
+  // O sucesso mostrado ao usuário se apoia no backup local (que é confiável),
+  // não na resposta opaca do Form.
+  backupPromise.then(function () {
+    if (localOk) {
+      setSendStatus("ok", "✓ Respostas registradas com sucesso.");
+    } else {
+      setSendStatus("err", "⚠️ Não conseguimos registrar localmente. Por favor, use o botão do WhatsApp abaixo.");
+    }
+  });
+}
 function render() {
-  if (state.step === -1) return renderWelcome();
+  // Tela de administração: suitability.html?admin=1
+  try {
+    if (/[?&]admin=1\b/.test(window.location.search)) return renderAdmin();
+  } catch (e) {}
+  if (state.step === -2) return renderWelcome();
+  if (state.step === -1) return renderCadastro();
   if (state.step >= STEPS.length) return renderResult();
   return renderQuestion();
 }
-
+// Tela só pra você: lista e exporta as respostas gravadas NESTE dispositivo.
+function renderAdmin() {
+  const lista = lerLocal();
+  const rows = lista.slice().reverse().map(function (r) {
+    const quando = (r._quando || "").replace("T", " ").slice(0, 16);
+    return `<tr>
+      <td style="padding:8px 10px;border-bottom:1px solid var(--border);font-size:12px;color:var(--text-mut)">${quando}</td>
+      <td style="padding:8px 10px;border-bottom:1px solid var(--border)">${r.nome || "—"}</td>
+      <td style="padding:8px 10px;border-bottom:1px solid var(--border)">${r.email || "—"}</td>
+      <td style="padding:8px 10px;border-bottom:1px solid var(--border)">${r.telefone || "—"}</td>
+      <td style="padding:8px 10px;border-bottom:1px solid var(--border)">${r.modalidade || "—"}</td>
+      <td style="padding:8px 10px;border-bottom:1px solid var(--border)">${r.prioridade || "—"}</td>
+    </tr>`;
+  }).join("");
+  fadeRender(`
+    <div class="container">
+      <div class="result-head">
+        <img src="${LOGO}" alt="">
+        <p class="lbl">Painel de respostas — este dispositivo</p>
+        <h2>${lista.length} resposta${lista.length===1?"":"s"} gravada${lista.length===1?"":"s"}</h2>
+      </div>
+      <div class="cta-secondary-row" style="margin-bottom:20px">
+        <button class="btn-pdf" onclick="baixarBackupCSV()">⬇️ Baixar tudo (CSV)</button>
+        <button class="btn-secondary" onclick="if(confirm('Apagar TODAS as respostas deste dispositivo? Faça o download antes.')){localStorage.removeItem(LS_KEY);render();}">🗑️ Limpar</button>
+        <a class="btn-secondary" href="?" style="text-decoration:none">← Voltar ao questionário</a>
+      </div>
+      ${lista.length ? `
+      <div class="section-card" style="overflow-x:auto;padding:0">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead><tr style="text-align:left;color:var(--gold)">
+            <th style="padding:10px">Quando</th><th style="padding:10px">Nome</th>
+            <th style="padding:10px">E-mail</th><th style="padding:10px">Telefone</th>
+            <th style="padding:10px">Modalidade</th><th style="padding:10px">Prioridade</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>` : '<p class="qsubtitle" style="text-align:center">Nenhuma resposta gravada ainda neste navegador.</p>'}
+      <p class="send-status">Estas respostas ficam salvas no seu navegador (mesmo offline). Exporte o CSV regularmente.</p>
+    </div>
+  `);
+}
 // ============================================================
 // PDF
 // ============================================================
@@ -756,39 +1221,32 @@ function gerarPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation:"portrait", unit:"mm", format:"a4" });
   let y = 20;
-
-  // Cabeçalho
   doc.setFillColor(10, 26, 46);
   doc.rect(0, 0, 210, 30, "F");
   doc.setTextColor(255, 102, 0);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(22);
-  doc.text("ASCEN CRIPTO", 20, 18);
+  doc.text("ASCEN STRATEGY", 20, 18);
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
   doc.text("Relatório de Suitability", 20, 25);
-
   y = 45;
   doc.setTextColor(20, 20, 20);
-
-  // Dados
   doc.setFont("helvetica", "bold"); doc.setFontSize(13);
   doc.text("Dados", 20, y); y += 7;
   doc.setFont("helvetica", "normal"); doc.setFontSize(11);
   doc.text(`Nome: ${data.nome}`, 20, y); y += 6;
+  doc.text(`E-mail: ${data.email}`, 20, y); y += 6;
+  doc.text(`Telefone: ${data.telefone}`, 20, y); y += 6;
   doc.text(`Idade: ${data.idade}`, 20, y); y += 6;
   doc.text(`Capital: ${data.capital}`, 20, y); y += 6;
   doc.text(`Objetivo: ${data.objetivo}`, 20, y); y += 10;
-
-  // Perfil
   doc.setFont("helvetica", "bold"); doc.setFontSize(13);
   doc.text("Perfil", 20, y); y += 7;
   doc.setFont("helvetica", "normal"); doc.setFontSize(11);
   doc.text(`Risco: ${data.risco} (${data.riscoScore}/100)`, 20, y); y += 6;
   doc.text(`Operacional: ${data.operacional} (${data.operacionalScore}/100)`, 20, y); y += 10;
-
-  // Modalidade
   doc.setFillColor(255, 102, 0);
   doc.rect(20, y - 4, 170, 10, "F");
   doc.setTextColor(255, 255, 255);
@@ -800,8 +1258,6 @@ function gerarPDF() {
   const descLines = doc.splitTextToSize(data.descricao, 170);
   doc.text(descLines, 20, y);
   y += descLines.length * 5 + 8;
-
-  // Fortes
   if (data.fortes.length) {
     doc.setFont("helvetica", "bold"); doc.setFontSize(11);
     doc.setTextColor(34, 139, 34);
@@ -811,7 +1267,6 @@ function gerarPDF() {
     data.fortes.forEach(f => { doc.text(`• ${f}`, 22, y); y += 5; });
     y += 4;
   }
-  // Fracos
   if (data.fracos.length) {
     doc.setFont("helvetica", "bold"); doc.setFontSize(11);
     doc.setTextColor(255, 102, 0);
@@ -821,7 +1276,6 @@ function gerarPDF() {
     data.fracos.forEach(f => { doc.text(`• ${f}`, 22, y); y += 5; });
     y += 4;
   }
-  // Alertas
   if (data.alertas.length) {
     doc.setFont("helvetica", "bold"); doc.setFontSize(11);
     doc.setTextColor(180, 100, 0);
@@ -835,8 +1289,6 @@ function gerarPDF() {
     });
     y += 4;
   }
-
-  // Aviso final
   if (y > 260) { doc.addPage(); y = 20; }
   doc.setDrawColor(200, 200, 200);
   doc.line(20, y, 190, y); y += 8;
@@ -845,10 +1297,8 @@ function gerarPDF() {
   const aviso = "Este questionário possui caráter educativo e auxilia na identificação do perfil de exposição ao mercado de criptoativos. Não constitui recomendação de investimento.";
   const avisoLines = doc.splitTextToSize(aviso, 170);
   doc.text(avisoLines, 20, y);
-
   doc.save(`suitability-${(data.nome || "ascen").toLowerCase().replace(/\s+/g,"-")}.pdf`);
 }
-
 // ============================================================
 // BOOT
 // ============================================================
